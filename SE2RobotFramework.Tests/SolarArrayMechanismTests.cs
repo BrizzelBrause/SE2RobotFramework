@@ -1,4 +1,5 @@
 using SE2RobotFramework.Core;
+using SE2RobotFramework.Controllers;
 using SE2RobotFramework.Hardware;
 using SE2RobotFramework.Mechanisms.Solar;
 using SE2RobotFramework.Motion;
@@ -53,6 +54,31 @@ public class SolarArrayMechanismTests
 
         Assert.Equal(4.0, first.CommandedVelocity);
         Assert.Equal(-4.0, second.CommandedVelocity);
+    }
+
+    [Fact]
+    public void GetRuntimeState_ReturnsBothLogicalAxes()
+    {
+        SolarArrayHardware hardware = new(
+            SolarArrayType.BaseRotorWithRotor,
+            new FakeAxisHardware(),
+            new FakeAxisHardware());
+        SolarArrayMechanism mechanism = new(
+            hardware,
+            CreateAxis("Solar.Azimuth"),
+            CreateAxis("Solar.Elevation"),
+            new MotionProfileFactory(),
+            new MotionRequestFactory());
+        mechanism.SetTargetOrientation(90.0, 30.0);
+        mechanism.Update(0.1);
+
+        MechanismRuntimeState state = mechanism.GetRuntimeState();
+
+        Assert.Equal(2, state.Axes.Count);
+        Assert.Equal("Solar.Azimuth", state.Axes[0].Name);
+        Assert.Equal("Solar.Elevation", state.Axes[1].Name);
+        Assert.True(state.IsMoving);
+        Assert.False(state.HasFault);
     }
 
     private static RotationalAxis CreateAxis(string name)
