@@ -114,10 +114,12 @@ public class MechanismFactoryTests
         FrameworkConfigurationSerializer serializer = new();
         string json = serializer.SerializeSolarArray(updated);
 
-        SolarArrayConfiguration applied =
-            new RuntimeConfigurationService().ApplySolarArray(json, runtime);
+        RuntimeConfigurationApplyResult<SolarArrayConfiguration> applyResult =
+            new RuntimeConfigurationService().TryApplySolarArray(json, runtime);
+        SolarArrayConfiguration applied = applyResult.Configuration!;
         runtime.Update(0.1);
 
+        Assert.True(applyResult.IsSuccess);
         Assert.Equal(
             MotionProfileType.SCurve,
             runtime.Mechanism.AzimuthAxis.MotionProfileType);
@@ -294,14 +296,17 @@ public class MechanismFactoryTests
         FrameworkConfigurationSerializer serializer = new();
         string json = serializer.SerializeDrillArm(updated);
 
-        DrillArmConfiguration applied =
-            new RuntimeConfigurationService().ApplyDrillArm(json, runtime);
+        RuntimeConfigurationService configurationService = new();
+        RuntimeConfigurationApplyResult<DrillArmConfiguration> applyResult =
+            configurationService.TryApplyDrillArm(json, runtime);
+        DrillArmConfiguration applied = applyResult.Configuration!;
         DrillArmManualInputResult result = runtime.ProcessManualInput(
             new DrillArmManualInput(
                 default,
                 new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0)),
             0.1);
 
+        Assert.True(applyResult.IsSuccess);
         Assert.Equal(
             MotionProfileType.SCurve,
             runtime.Mechanism.Axes.UpperArmExtension.MotionProfileType);
@@ -309,6 +314,24 @@ public class MechanismFactoryTests
         Assert.Equal(
             MotionProfileType.SCurve,
             applied.UpperArmExtension.MotionProfileType);
+
+        RuntimeConfigurationApplyResult<DrillArmConfiguration> invalidDocument =
+            configurationService.TryApplyDrillArm("{", runtime);
+        string changedLayoutJson = json.Replace(
+            "\"seriesCount\": 4",
+            "\"seriesCount\": 6",
+            StringComparison.Ordinal);
+        RuntimeConfigurationApplyResult<DrillArmConfiguration> rebuildRequired =
+            configurationService.TryApplyDrillArm(changedLayoutJson, runtime);
+
+        Assert.False(invalidDocument.IsSuccess);
+        Assert.Equal(
+            RuntimeConfigurationError.InvalidDocument,
+            invalidDocument.Error);
+        Assert.False(rebuildRequired.IsSuccess);
+        Assert.Equal(
+            RuntimeConfigurationError.RequiresHardwareRebuild,
+            rebuildRequired.Error);
     }
 
     private static DrillArmConfiguration CreateDrillArmConfiguration(

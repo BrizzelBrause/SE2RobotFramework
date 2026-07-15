@@ -33,6 +33,7 @@ A .NET framework for motion control and robot axis simulation.
 - Configuration-driven solar runtime with automatic sun-vector tracking
 - Live solar runtime reconfiguration with tracking-frame replacement
 - Versioned JSON loading directly into existing drill-arm and solar runtimes
+- Structured runtime-configuration results for safe in-game error reporting
 - Fake hardware implementations for testing
 - Automated unit tests
 
