@@ -87,6 +87,26 @@ public class DrillArmMouseControllerTests
     }
 
     [Fact]
+    public void Update_WhenCompensationExceedsLimit_LeavesHingeAtLimitWithoutBlockingArm()
+    {
+        (DrillArmMouseController controller, DrillArmMechanism mechanism) =
+            CreateController();
+        SetPose(mechanism, shoulder: 100.0, elbow: 20.0, forearmHinge: 10.0);
+        controller.Apply(new DrillArmMouseInput(0.0, 10.0));
+
+        SetPhysicalJointPositions(
+            mechanism,
+            shoulder: 110.0,
+            elbow: 30.0,
+            forearmHinge: 0.0);
+        controller.Update(0.1);
+
+        Assert.Equal(0.0, mechanism.Axes.ForearmHinge.TargetPosition);
+        Assert.Equal(DrillArmControlStatus.AtTarget, controller.Status);
+        Assert.Equal(10.0, controller.ForearmOrientationErrorDegrees);
+    }
+
+    [Fact]
     public void PositionLimits_UsePistonCountAndSpecifiedJointBounds()
     {
         (_, DrillArmMechanism mechanism) = CreateController();

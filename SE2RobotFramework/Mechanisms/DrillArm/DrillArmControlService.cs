@@ -63,11 +63,7 @@ public class DrillArmControlService
         if (LastRuntimeState.IsAtTarget)
         {
             _hasActiveCommand = false;
-            Status = IsForearmOrientationHoldEnabled &&
-                Math.Abs(ForearmOrientationErrorDegrees) >
-                    _mechanism.Axes.ForearmHinge.Tolerance
-                ? DrillArmControlStatus.Blocked
-                : DrillArmControlStatus.AtTarget;
+            Status = DrillArmControlStatus.AtTarget;
             return;
         }
 
