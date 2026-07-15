@@ -17,6 +17,7 @@ A .NET framework for motion control and robot axis simulation.
 - Nine-axis drill-arm mechanism with configurable piston banks and coupled joints
 - Optional game-independent switchable drill-head hardware with safe control
 - Drill-head desired state in the game-independent manual input frame
+- Immediate drill-head command acceptance and hardware-status feedback
 - Enforced drill-arm mechanical limits derived from the configured piston layout
 - Valid default configurations for all solar variants and variable drill-arm layouts
 - Serializable and validated runtime configuration for axes, solar arrays, and drill arms

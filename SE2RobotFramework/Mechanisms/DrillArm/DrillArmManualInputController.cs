@@ -49,7 +49,9 @@ public class DrillArmManualInputController
         return new DrillArmManualInputResult(
             GetTargets(),
             mouseResult,
-            _controlService.Status);
+            _controlService.Status,
+            null,
+            null);
     }
 
     private static bool HasMouseInput(DrillArmMouseInput input)
