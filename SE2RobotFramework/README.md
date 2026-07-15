@@ -2,6 +2,9 @@
 
 A .NET framework for motion control and robot axis simulation.
 
+See [Architecture](../docs/ARCHITECTURE.md) and the
+[Integration guide](../docs/INTEGRATION.md) for game-adapter usage.
+
 ## Features
 
 - S-curve motion profile
@@ -91,5 +94,7 @@ runs all unit tests, and executes the console demonstration as a smoke test.
 
 ## Status
 
-The project is under active development.
+The game-independent core is feature complete for automatic solar tracking and
+manual drill-arm control. A Space Engineers 2 adapter remains pending until the
+game's modding API is defined.
 
