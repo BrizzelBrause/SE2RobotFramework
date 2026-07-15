@@ -1,20 +1,35 @@
-# \# SE2RobotFramework
+# SE2RobotFramework
 
-# 
+A .NET framework for motion control and robot axis simulation.
 
-# A .NET motion framework for robot axis control.
+## Features
 
-# 
+- S-curve motion profile
+- Trapezoidal motion profile
+- Motion state integration
+- Linear and rotational axis abstractions
+- Fake hardware implementations for testing
+- Automated unit tests
 
-# \## Features
+## Projects
 
-# 
+### SE2RobotFramework
 
-# \- S-curve motion profile
+Contains the motion-control implementation and axis abstractions.
 
-# \- Trapezoidal motion profile
+### SE2RobotFramework.Tests
 
-# \- Motion integration
+Contains the automated test suite for the framework.
 
-# \- Unit tests
+## Build
+
+Open `SE2RobotFramework.sln` in Visual Studio and build the solution.
+
+## Tests
+
+Run the test suite using Visual Studio Test Explorer.
+
+## Status
+
+The project is under active development.
 
