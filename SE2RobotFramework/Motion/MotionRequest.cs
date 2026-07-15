@@ -4,6 +4,8 @@ public class MotionRequest
 {
     public double RemainingDistance { get; init; }
 
+    public MotionLimits Limits { get; init; } = new();
+
     public double MaximumSpeed { get; init; }
 
     public double MaximumAcceleration { get; init; }
