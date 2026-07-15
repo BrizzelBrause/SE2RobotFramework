@@ -2,4 +2,5 @@ namespace SE2RobotFramework.Mechanisms.DrillArm;
 
 public readonly record struct DrillArmManualInput(
     DrillArmMouseInput Mouse,
-    DrillArmKeyboardInput Keyboard);
+    DrillArmKeyboardInput Keyboard,
+    bool DrillHeadEnabled = false);
