@@ -18,6 +18,7 @@ A .NET framework for motion control and robot axis simulation.
 - Serializable and validated runtime configuration for axes, solar arrays, and drill arms
 - Live application of profile, limit, tolerance, and range changes without rebuilding controllers
 - Configuration-driven factories for complete solar-array and drill-arm mechanisms
+- Coordinate-system-independent solar-vector tracking with configurable calibration frame
 - Fake hardware implementations for testing
 - Automated unit tests
 

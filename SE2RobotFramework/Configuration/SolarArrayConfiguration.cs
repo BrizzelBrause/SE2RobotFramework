@@ -10,6 +10,8 @@ public class SolarArrayConfiguration
 
     public AxisConfiguration ElevationAxis { get; init; } = new();
 
+    public SolarTrackingFrame TrackingFrame { get; init; } = new();
+
     public void Validate()
     {
         if (!Enum.IsDefined(Type))
@@ -19,6 +21,8 @@ public class SolarArrayConfiguration
 
         ValidateRotationalAxis(AzimuthAxis, nameof(AzimuthAxis));
         ValidateRotationalAxis(ElevationAxis, nameof(ElevationAxis));
+        ArgumentNullException.ThrowIfNull(TrackingFrame);
+        TrackingFrame.Validate();
     }
 
     private static void ValidateRotationalAxis(
