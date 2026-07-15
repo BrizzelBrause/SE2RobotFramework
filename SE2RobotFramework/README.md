@@ -24,6 +24,7 @@ A .NET framework for motion control and robot axis simulation.
 - Aggregated runtime snapshots for displaying every mechanism axis in a user interface
 - Automatic solar-tracking service with a replaceable sun-vector provider and safe stop behavior
 - Versioned, human-readable JSON persistence for solar-array and drill-arm configurations
+- Safe joint-level drill-arm control service with target validation and fault handling
 - Fake hardware implementations for testing
 - Automated unit tests
 

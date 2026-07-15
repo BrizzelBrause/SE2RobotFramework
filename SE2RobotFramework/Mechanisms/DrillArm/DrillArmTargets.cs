@@ -8,4 +8,26 @@ public readonly record struct DrillArmTargets(
     double ForearmExtension,
     double WristRotation,
     double WristHinge,
-    double ToolExtension);
+    double ToolExtension)
+{
+    public void Validate()
+    {
+        double[] targets =
+        {
+            BaseRotation,
+            Shoulder,
+            UpperArmExtension,
+            Elbow,
+            ForearmExtension,
+            WristRotation,
+            WristHinge,
+            ToolExtension
+        };
+
+        if (targets.Any(target => !double.IsFinite(target)))
+        {
+            throw new ArgumentException(
+                "All drill-arm targets must be finite values.");
+        }
+    }
+}

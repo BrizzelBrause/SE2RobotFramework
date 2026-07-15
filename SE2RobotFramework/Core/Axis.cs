@@ -31,6 +31,11 @@ public class Axis
 
     public void SetTargetPosition(double targetPosition)
     {
+        if (!double.IsFinite(targetPosition))
+        {
+            throw new ArgumentOutOfRangeException(nameof(targetPosition));
+        }
+
         TargetPosition = Math.Clamp(
             targetPosition,
             MinimumPosition,

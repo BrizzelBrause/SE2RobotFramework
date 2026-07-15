@@ -48,6 +48,7 @@ public class DrillArmMechanism
 
     public void SetTargets(DrillArmTargets targets)
     {
+        targets.Validate();
         Axes.BaseRotation.SetTargetPosition(targets.BaseRotation);
         Axes.Shoulder.SetTargetPosition(targets.Shoulder);
         Axes.UpperArmExtension.SetTargetPosition(targets.UpperArmExtension);
