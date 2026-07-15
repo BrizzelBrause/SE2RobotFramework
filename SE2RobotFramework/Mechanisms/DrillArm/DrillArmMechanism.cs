@@ -71,4 +71,12 @@ public class DrillArmMechanism
         return new MechanismRuntimeState(
             _controllers.Select(controller => controller.GetRuntimeState()));
     }
+
+    public void Stop()
+    {
+        foreach (MotionController controller in _controllers)
+        {
+            controller.Stop();
+        }
+    }
 }

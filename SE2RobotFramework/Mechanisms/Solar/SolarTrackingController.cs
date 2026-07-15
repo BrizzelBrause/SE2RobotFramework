@@ -1,4 +1,5 @@
 using System.Numerics;
+using SE2RobotFramework.Controllers;
 
 namespace SE2RobotFramework.Mechanisms.Solar;
 
@@ -37,5 +38,15 @@ public class SolarTrackingController
     public void Update(double deltaTime)
     {
         _mechanism.Update(deltaTime);
+    }
+
+    public MechanismRuntimeState GetRuntimeState()
+    {
+        return _mechanism.GetRuntimeState();
+    }
+
+    public void Stop()
+    {
+        _mechanism.Stop();
     }
 }
