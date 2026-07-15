@@ -20,7 +20,7 @@ public class DrillArmRuntime
 
     public DrillArmControlService ControlService { get; }
 
-    public DrillArmManualInputController ManualInputController { get; }
+    public DrillArmManualInputController ManualInputController { get; private set; }
 
     public DrillArmControlStatus Status => ControlService.Status;
 
@@ -37,5 +37,12 @@ public class DrillArmRuntime
     public void Stop()
     {
         ControlService.Stop();
+    }
+
+    internal void ReplaceManualInputController(
+        DrillArmManualInputController manualInputController)
+    {
+        ManualInputController = manualInputController ??
+            throw new ArgumentNullException(nameof(manualInputController));
     }
 }

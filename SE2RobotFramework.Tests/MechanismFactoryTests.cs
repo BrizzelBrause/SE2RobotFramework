@@ -210,13 +210,54 @@ public class MechanismFactoryTests
         Assert.Equal(DrillArmControlStatus.Stopped, runtime.Status);
     }
 
-    private static DrillArmConfiguration CreateDrillArmConfiguration()
+    [Fact]
+    public void DrillArmRuntimeConfigurationApplier_UpdatesProfilesAndInputRates()
+    {
+        DrillArmHardware hardware = new()
+        {
+            BaseRotation = new FakeAxisHardware(),
+            Shoulder = new FakeAxisHardware(),
+            UpperArmExtension = new PistonBankAxisHardware(CreatePistons(5, 4)),
+            Elbow = new FakeAxisHardware(),
+            ForearmExtension = new PistonBankAxisHardware(CreatePistons(5, 3)),
+            ForearmHinge = new FakeAxisHardware(),
+            WristRotation = new FakeAxisHardware(),
+            WristHinge = new FakeAxisHardware(),
+            ToolExtension = new PistonBankAxisHardware(CreatePistons(1, 1))
+        };
+        DrillArmRuntime runtime = new DrillArmRuntimeFactory().Create(
+            CreateDrillArmConfiguration(),
+            hardware);
+        DrillArmConfiguration updated = CreateDrillArmConfiguration(
+            MotionProfileType.SCurve,
+            upperArmKeyboardRate: 2.0);
+
+        new DrillArmRuntimeConfigurationApplier().Apply(updated, runtime);
+        DrillArmManualInputResult result = runtime.ProcessManualInput(
+            new DrillArmManualInput(
+                default,
+                new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0)),
+            0.1);
+
+        Assert.Equal(
+            MotionProfileType.SCurve,
+            runtime.Mechanism.Axes.UpperArmExtension.MotionProfileType);
+        Assert.Equal(0.2, result.Targets.UpperArmExtension);
+    }
+
+    private static DrillArmConfiguration CreateDrillArmConfiguration(
+        MotionProfileType upperArmProfile = MotionProfileType.Linear,
+        double upperArmKeyboardRate = 1.0)
     {
         return new DrillArmConfiguration
         {
             BaseRotation = CreateAxis("DrillArm.Base", AxisType.Rotational, 5.0),
             Shoulder = CreateAxis("DrillArm.Shoulder", AxisType.Rotational, 5.0),
-            UpperArmExtension = CreateAxis("DrillArm.UpperArm", AxisType.Linear, 4.0),
+            UpperArmExtension = CreateAxis(
+                "DrillArm.UpperArm",
+                AxisType.Linear,
+                4.0,
+                upperArmProfile),
             UpperArmPistons = new PistonBankConfiguration
             {
                 SeriesCount = 4,
@@ -237,6 +278,10 @@ public class MechanismFactoryTests
             {
                 SeriesCount = 1,
                 ParallelCount = 1
+            },
+            KeyboardControl = new DrillArmKeyboardControlConfiguration
+            {
+                UpperArmExtensionMetersPerSecond = upperArmKeyboardRate
             }
         };
     }
@@ -244,16 +289,19 @@ public class MechanismFactoryTests
     private static AxisConfiguration CreateAxis(
         string name,
         AxisType axisType,
-        double maximumSpeed)
+        double maximumSpeed,
+        MotionProfileType motionProfileType = MotionProfileType.Linear)
     {
         return new AxisConfiguration
         {
             Name = name,
             AxisType = axisType,
-            MotionProfileType = MotionProfileType.Linear,
+            MotionProfileType = motionProfileType,
             MotionLimits = new MotionLimitsConfiguration
             {
-                MaximumSpeed = maximumSpeed
+                MaximumSpeed = maximumSpeed,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 5.0
             },
             Tolerance = 0.1
         };
