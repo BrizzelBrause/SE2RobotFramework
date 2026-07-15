@@ -59,7 +59,8 @@ dotnet build SE2RobotFramework.slnx
 
 Run the test suite using Visual Studio Test Explorer.
 
-The console demonstration can be started with:
+The console demonstration includes solar-axis and combined drill-arm manual-input
+simulations. It can be started with:
 
 ```shell
 dotnet run --project SE2RobotFramework.Demo
