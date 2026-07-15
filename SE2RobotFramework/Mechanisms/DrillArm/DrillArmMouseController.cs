@@ -57,7 +57,11 @@ public class DrillArmMouseController
             axes.WristHinge.TargetPosition,
             axes.ToolExtension.TargetPosition);
 
-        _controlService.EnableForearmOrientationHold();
+        if (!_controlService.IsForearmOrientationHoldEnabled)
+        {
+            _controlService.EnableForearmOrientationHold();
+        }
+
         _controlService.MoveTo(targets);
 
         return new DrillArmMouseControlResult(
