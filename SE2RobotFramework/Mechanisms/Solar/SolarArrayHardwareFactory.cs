@@ -7,7 +7,8 @@ public class SolarArrayHardwareFactory
     public SolarArrayHardware Create(
         SolarArrayType type,
         IAxisHardware baseRotor,
-        IEnumerable<IAxisHardware> elevationActuators)
+        IEnumerable<IAxisHardware> elevationActuators,
+        double maximumElevationSynchronizationError = double.PositiveInfinity)
     {
         ArgumentNullException.ThrowIfNull(baseRotor);
         ArgumentNullException.ThrowIfNull(elevationActuators);
@@ -27,7 +28,8 @@ public class SolarArrayHardwareFactory
             SolarArrayType.BaseRotorWithDualRotors => CreateDualRotors(
                 type,
                 baseRotor,
-                actuators),
+                actuators,
+                maximumElevationSynchronizationError),
             _ => throw new ArgumentOutOfRangeException(nameof(type))
         };
     }
@@ -45,7 +47,8 @@ public class SolarArrayHardwareFactory
     private static SolarArrayHardware CreateDualRotors(
         SolarArrayType type,
         IAxisHardware baseRotor,
-        IReadOnlyList<IAxisHardware> actuators)
+        IReadOnlyList<IAxisHardware> actuators,
+        double maximumSynchronizationError)
     {
         ValidateActuatorCount(actuators, 2);
 
@@ -53,7 +56,9 @@ public class SolarArrayHardwareFactory
         {
             new TransformedAxisHardware(actuators[0]),
             new TransformedAxisHardware(actuators[1], scale: -1.0)
-        });
+        },
+        maximumPositionDeviation: maximumSynchronizationError,
+        positionPeriod: 360.0);
 
         return new SolarArrayHardware(type, baseRotor, elevation);
     }

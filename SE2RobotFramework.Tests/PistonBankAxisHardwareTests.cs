@@ -75,6 +75,20 @@ public class PistonBankAxisHardwareTests
         Assert.Throws<ArgumentException>(() => new PistonBankAxisHardware(pistons));
     }
 
+    [Fact]
+    public void CanExecuteCommand_WhenParallelRowsAreOutOfSync_ReturnsFalse()
+    {
+        FakeAxisHardware[][] pistons = CreatePistons(2, 3);
+        pistons[1][0].SetPosition(2.0);
+        PistonBankAxisHardware hardware = new(
+            pistons,
+            maximumRowPositionDeviation: 1.0);
+
+        Assert.Equal(2.0, hardware.CurrentRowPositionDeviation);
+        Assert.False(hardware.IsSynchronized);
+        Assert.False(hardware.CanExecuteCommand());
+    }
+
     private static FakeAxisHardware[][] CreatePistons(
         int parallelCount,
         int seriesCount)

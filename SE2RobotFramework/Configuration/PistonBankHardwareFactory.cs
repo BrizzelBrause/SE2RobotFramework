@@ -12,7 +12,11 @@ public class PistonBankHardwareFactory
         ArgumentNullException.ThrowIfNull(pistonRows);
         configuration.Validate();
 
-        PistonBankAxisHardware hardware = new(pistonRows);
+        PistonBankAxisHardware hardware = new(
+            pistonRows,
+            maximumRowPositionDeviation:
+                configuration.MaximumRowSynchronizationError ??
+                double.PositiveInfinity);
 
         if (hardware.SeriesCount != configuration.SeriesCount ||
             hardware.ParallelCount != configuration.ParallelCount)

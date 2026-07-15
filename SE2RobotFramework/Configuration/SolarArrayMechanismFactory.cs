@@ -44,7 +44,9 @@ public class SolarArrayMechanismFactory
         SolarArrayHardware hardware = _hardwareFactory.Create(
             configuration.Type,
             baseRotor,
-            elevationActuators);
+            elevationActuators,
+            configuration.MaximumElevationSynchronizationError ??
+                double.PositiveInfinity);
         RotationalAxis azimuth = (RotationalAxis)_axisFactory.Create(
             configuration.AzimuthAxis);
         RotationalAxis elevation = (RotationalAxis)_axisFactory.Create(

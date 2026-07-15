@@ -8,7 +8,8 @@ public class PistonBankAxisHardware : IAxisHardware
 
     public PistonBankAxisHardware(
         IEnumerable<IEnumerable<IAxisHardware>> rows,
-        int feedbackRowIndex = 0)
+        int feedbackRowIndex = 0,
+        double maximumRowPositionDeviation = double.PositiveInfinity)
     {
         ArgumentNullException.ThrowIfNull(rows);
 
@@ -46,12 +47,21 @@ public class PistonBankAxisHardware : IAxisHardware
 
         _parallelRows = new ParallelAxisHardware(
             rowMembers.Select(row => new SeriesAxisHardware(row)),
-            feedbackRowIndex);
+            feedbackRowIndex,
+            maximumRowPositionDeviation);
     }
 
     public int SeriesCount { get; }
 
     public int ParallelCount { get; }
+
+    public double MaximumRowPositionDeviation =>
+        _parallelRows.MaximumPositionDeviation;
+
+    public double CurrentRowPositionDeviation =>
+        _parallelRows.CurrentPositionDeviation;
+
+    public bool IsSynchronized => _parallelRows.IsSynchronized;
 
     public double GetPosition()
     {

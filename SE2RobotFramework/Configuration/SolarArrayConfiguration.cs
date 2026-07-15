@@ -12,6 +12,8 @@ public class SolarArrayConfiguration
 
     public SolarTrackingFrame TrackingFrame { get; init; } = new();
 
+    public double? MaximumElevationSynchronizationError { get; init; }
+
     public void Validate()
     {
         if (!Enum.IsDefined(Type))
@@ -23,6 +25,14 @@ public class SolarArrayConfiguration
         ValidateRotationalAxis(ElevationAxis, nameof(ElevationAxis));
         ArgumentNullException.ThrowIfNull(TrackingFrame);
         TrackingFrame.Validate();
+
+        if (MaximumElevationSynchronizationError.HasValue &&
+            (!double.IsFinite(MaximumElevationSynchronizationError.Value) ||
+             MaximumElevationSynchronizationError.Value < 0.0))
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(MaximumElevationSynchronizationError));
+        }
     }
 
     private static void ValidateRotationalAxis(
