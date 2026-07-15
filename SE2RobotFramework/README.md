@@ -22,6 +22,7 @@ A .NET framework for motion control and robot axis simulation.
 - Configurable synchronization monitoring for coupled rotors and parallel piston rows
 - Runtime diagnostics for readiness, invalid feedback, unavailability, and synchronization loss
 - Aggregated runtime snapshots for displaying every mechanism axis in a user interface
+- Automatic solar-tracking service with a replaceable sun-vector provider and safe stop behavior
 - Fake hardware implementations for testing
 - Automated unit tests
 

@@ -60,4 +60,10 @@ public class SolarArrayMechanism
             _elevationController.GetRuntimeState()
         });
     }
+
+    public void Stop()
+    {
+        _azimuthController.Stop();
+        _elevationController.Stop();
+    }
 }

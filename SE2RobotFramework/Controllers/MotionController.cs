@@ -88,6 +88,12 @@ public class MotionController
             AxisHardwareDiagnostics.GetStatus(_hardware));
     }
 
+    public void Stop()
+    {
+        _hardware.Stop();
+        Status = MotionControllerStatus.Stopped;
+    }
+
     private static MotionControllerStatus MapStatus(
         AxisHardwareStatus hardwareStatus)
     {
