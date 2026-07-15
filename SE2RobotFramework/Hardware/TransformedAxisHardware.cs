@@ -1,6 +1,6 @@
 namespace SE2RobotFramework.Hardware;
 
-public class TransformedAxisHardware : IAxisHardware
+public class TransformedAxisHardware : IAxisHardware, IAxisHardwareDiagnostics
 {
     private readonly IAxisHardware _hardware;
 
@@ -50,6 +50,20 @@ public class TransformedAxisHardware : IAxisHardware
 
     public bool CanExecuteCommand()
     {
-        return _hardware.CanExecuteCommand();
+        return GetStatus() == AxisHardwareStatus.Ready;
+    }
+
+    public AxisHardwareStatus GetStatus()
+    {
+        AxisHardwareStatus status = AxisHardwareDiagnostics.GetStatus(_hardware);
+
+        if (status != AxisHardwareStatus.Ready)
+        {
+            return status;
+        }
+
+        return double.IsFinite(GetPosition()) && double.IsFinite(GetVelocity())
+            ? AxisHardwareStatus.Ready
+            : AxisHardwareStatus.InvalidFeedback;
     }
 }

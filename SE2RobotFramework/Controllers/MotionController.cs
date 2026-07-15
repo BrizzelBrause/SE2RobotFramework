@@ -13,6 +13,9 @@ public class MotionController
     private IMotionProfile? _motionProfile;
     private MotionProfileType? _currentProfileType;
 
+    public MotionControllerStatus Status { get; private set; } =
+        MotionControllerStatus.AtTarget;
+
     public MotionController(Axis axis, IAxisHardware hardware, IMotionProfileFactory profileFactory, MotionRequestFactory requestFactory)
     {
         _axis = axis;
@@ -23,11 +26,34 @@ public class MotionController
 
     public void Update(double deltaTime)
     {
-        _axis.UpdatePosition(_hardware.GetPosition());
+        if (!double.IsFinite(deltaTime) || deltaTime <= 0.0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(deltaTime));
+        }
 
-        if (!CanMove())
+        if (!_axis.Enabled)
         {
             _hardware.Stop();
+            Status = MotionControllerStatus.Disabled;
+            return;
+        }
+
+        AxisHardwareStatus hardwareStatus =
+            AxisHardwareDiagnostics.GetStatus(_hardware);
+
+        if (hardwareStatus != AxisHardwareStatus.Ready)
+        {
+            _hardware.Stop();
+            Status = MapStatus(hardwareStatus);
+            return;
+        }
+
+        _axis.UpdatePosition(_hardware.GetPosition());
+
+        if (_axis.IsAtTarget())
+        {
+            _hardware.Stop();
+            Status = MotionControllerStatus.AtTarget;
             return;
         }
 
@@ -45,25 +71,21 @@ public class MotionController
         MotionState state = _motionProfile.Calculate(request);
 
         _hardware.SetVelocity(direction * state.DesiredVelocity);
+        Status = MotionControllerStatus.Moving;
     }
 
-    private bool CanMove()
+    private static MotionControllerStatus MapStatus(
+        AxisHardwareStatus hardwareStatus)
     {
-        if (!_axis.Enabled)
+        return hardwareStatus switch
         {
-            return false;
-        }
-
-        if (!_hardware.CanExecuteCommand())
-        {
-            return false;
-        }
-
-        if (_axis.IsAtTarget())
-        {
-            return false;
-        }
-
-        return true;
+            AxisHardwareStatus.Unavailable =>
+                MotionControllerStatus.HardwareUnavailable,
+            AxisHardwareStatus.InvalidFeedback =>
+                MotionControllerStatus.InvalidFeedback,
+            AxisHardwareStatus.SynchronizationLost =>
+                MotionControllerStatus.SynchronizationLost,
+            _ => throw new ArgumentOutOfRangeException(nameof(hardwareStatus))
+        };
     }
 }
