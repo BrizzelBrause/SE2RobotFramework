@@ -51,6 +51,7 @@ public class SolarArrayRuntimeFactory
             mechanism,
             trackingController,
             trackingService,
-            sunDirectionProvider);
+            sunDirectionProvider,
+            configuration);
     }
 }

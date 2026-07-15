@@ -114,8 +114,9 @@ public class MechanismFactoryTests
         FrameworkConfigurationSerializer serializer = new();
         string json = serializer.SerializeSolarArray(updated);
 
+        RuntimeConfigurationService configurationService = new();
         RuntimeConfigurationApplyResult<SolarArrayConfiguration> applyResult =
-            new RuntimeConfigurationService().TryApplySolarArray(json, runtime);
+            configurationService.TryApplySolarArray(json, runtime);
         SolarArrayConfiguration applied = applyResult.Configuration!;
         runtime.Update(0.1);
 
@@ -129,6 +130,10 @@ public class MechanismFactoryTests
         Assert.Equal(110.0, runtime.LastOrientation?.AzimuthDegrees);
         Assert.Equal(10.0, runtime.LastOrientation?.ElevationDegrees);
         Assert.Equal(20.0, applied.TrackingFrame.AzimuthOffsetDegrees);
+        Assert.Same(applied, runtime.ActiveConfiguration);
+        Assert.Contains(
+            "\"azimuthOffsetDegrees\": 20",
+            configurationService.ExportSolarArray(runtime));
     }
 
     [Fact]
@@ -332,6 +337,10 @@ public class MechanismFactoryTests
         Assert.Equal(
             RuntimeConfigurationError.RequiresHardwareRebuild,
             rebuildRequired.Error);
+        Assert.Same(applied, runtime.ActiveConfiguration);
+        Assert.Contains(
+            "\"sCurve\"",
+            configurationService.ExportDrillArm(runtime));
     }
 
     private static DrillArmConfiguration CreateDrillArmConfiguration(

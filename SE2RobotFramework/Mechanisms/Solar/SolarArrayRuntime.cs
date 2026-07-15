@@ -1,4 +1,5 @@
 using SE2RobotFramework.Controllers;
+using SE2RobotFramework.Configuration;
 
 namespace SE2RobotFramework.Mechanisms.Solar;
 
@@ -8,7 +9,8 @@ public class SolarArrayRuntime
         SolarArrayMechanism mechanism,
         SolarTrackingController trackingController,
         SolarTrackingService trackingService,
-        ISunDirectionProvider sunDirectionProvider)
+        ISunDirectionProvider sunDirectionProvider,
+        SolarArrayConfiguration activeConfiguration)
     {
         Mechanism = mechanism ?? throw new ArgumentNullException(nameof(mechanism));
         TrackingController = trackingController ??
@@ -17,6 +19,8 @@ public class SolarArrayRuntime
             throw new ArgumentNullException(nameof(trackingService));
         SunDirectionProvider = sunDirectionProvider ??
             throw new ArgumentNullException(nameof(sunDirectionProvider));
+        ActiveConfiguration = activeConfiguration ??
+            throw new ArgumentNullException(nameof(activeConfiguration));
     }
 
     public SolarArrayMechanism Mechanism { get; }
@@ -26,6 +30,8 @@ public class SolarArrayRuntime
     public SolarTrackingService TrackingService { get; private set; }
 
     public ISunDirectionProvider SunDirectionProvider { get; }
+
+    public SolarArrayConfiguration ActiveConfiguration { get; private set; }
 
     public SolarTrackingServiceStatus Status => TrackingService.Status;
 
@@ -52,5 +58,12 @@ public class SolarArrayRuntime
             throw new ArgumentNullException(nameof(trackingController));
         TrackingService = trackingService ??
             throw new ArgumentNullException(nameof(trackingService));
+    }
+
+    internal void ReplaceActiveConfiguration(
+        SolarArrayConfiguration activeConfiguration)
+    {
+        ActiveConfiguration = activeConfiguration ??
+            throw new ArgumentNullException(nameof(activeConfiguration));
     }
 }
