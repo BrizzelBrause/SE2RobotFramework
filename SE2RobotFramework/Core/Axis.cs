@@ -18,6 +18,8 @@ public class Axis
 
     public double MaximumJerk { get; set; }
 
+    public MotionProfileType MotionProfileType { get; set; } = MotionProfileType.SCurve;
+
     public double MinimumPosition { get; set; } = double.NegativeInfinity;
 
     public double MaximumPosition { get; set; } = double.PositiveInfinity;

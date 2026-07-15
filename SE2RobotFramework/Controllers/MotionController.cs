@@ -8,14 +8,14 @@ public class MotionController
 {
     private readonly Axis _axis;
     private readonly IAxisHardware _hardware;
-    private readonly IMotionProfile _motionProfile;
+    private readonly IMotionProfileFactory _profileFactory;
     private readonly MotionRequestFactory _requestFactory;
 
-    public MotionController(Axis axis, IAxisHardware hardware, IMotionProfile motionProfile, MotionRequestFactory requestFactory)
+    public MotionController(Axis axis, IAxisHardware hardware, IMotionProfileFactory profileFactory, MotionRequestFactory requestFactory)
     {
         _axis = axis;
         _hardware = hardware;
-        _motionProfile = motionProfile;
+        _profileFactory = profileFactory;
         _requestFactory = requestFactory;
     }
 
@@ -34,7 +34,9 @@ public class MotionController
 
         MotionRequest request = _requestFactory.Create(_axis, _hardware, deltaTime);
 
-        MotionState state = _motionProfile.Calculate(request);
+        IMotionProfile motionProfile = _profileFactory.Create(_axis.MotionProfileType);
+
+        MotionState state = motionProfile.Calculate(request);
 
         _hardware.SetVelocity(direction * state.DesiredVelocity);
     }
