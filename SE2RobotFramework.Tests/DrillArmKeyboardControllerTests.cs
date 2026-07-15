@@ -46,15 +46,24 @@ public class DrillArmKeyboardControllerTests
     [Fact]
     public void Apply_ManualForearmInput_DisablesOrientationHold()
     {
-        (DrillArmKeyboardController controller, _, DrillArmControlService service) =
+        (
+            DrillArmKeyboardController controller,
+            DrillArmMechanism mechanism,
+            DrillArmControlService service) =
             CreateController();
         service.EnableForearmOrientationHold();
+        mechanism.Axes.Shoulder.UpdatePosition(100.0);
+        service.MoveTo(GetTargets(mechanism.Axes));
+        service.Update(0.1);
+
+        Assert.True(service.IsForearmCompensationLimitLatched);
 
         controller.Apply(
             new DrillArmKeyboardInput(0.0, 0.0, -1.0, 0.0),
             1.0);
 
         Assert.False(service.IsForearmOrientationHoldEnabled);
+        Assert.False(service.IsForearmCompensationLimitLatched);
     }
 
     [Fact]

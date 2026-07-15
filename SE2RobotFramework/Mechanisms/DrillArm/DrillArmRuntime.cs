@@ -52,6 +52,7 @@ public class DrillArmRuntime
             ControlService.LastRuntimeState ?? Mechanism.GetRuntimeState(),
             ControlService.ActiveTargets,
             ControlService.IsForearmOrientationHoldEnabled,
+            ControlService.IsForearmCompensationLimitLatched,
             ControlService.ForearmOrientationErrorDegrees);
     }
 
