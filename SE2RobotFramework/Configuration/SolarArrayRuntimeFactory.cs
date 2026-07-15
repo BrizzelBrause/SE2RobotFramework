@@ -50,6 +50,7 @@ public class SolarArrayRuntimeFactory
         return new SolarArrayRuntime(
             mechanism,
             trackingController,
-            trackingService);
+            trackingService,
+            sunDirectionProvider);
     }
 }
