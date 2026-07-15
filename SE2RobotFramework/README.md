@@ -26,6 +26,7 @@ A .NET framework for motion control and robot axis simulation.
 - Versioned, human-readable JSON persistence for solar-array and drill-arm configurations
 - Safe joint-level drill-arm control service with target validation and fault handling
 - Configurable mouse control for base, shoulder, and elbow with compensating forearm hinge
+- Configurable keyboard control for piston banks and manual forearm-hinge adjustment
 - Fake hardware implementations for testing
 - Automated unit tests
 
