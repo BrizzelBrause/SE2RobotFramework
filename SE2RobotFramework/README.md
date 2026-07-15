@@ -38,6 +38,7 @@ A .NET framework for motion control and robot axis simulation.
 - Structured runtime-configuration results for safe in-game error reporting
 - Active runtime-configuration snapshots with versioned JSON export
 - Drill-arm runtime snapshots for HUD status and orientation-hold diagnostics
+- Solar runtime snapshots for HUD tracking and axis diagnostics
 - Fake hardware implementations for testing
 - Automated unit tests
 
