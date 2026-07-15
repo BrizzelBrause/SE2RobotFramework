@@ -45,6 +45,16 @@ public class DrillArmRuntime
         ControlService.Stop();
     }
 
+    public DrillArmRuntimeSnapshot GetSnapshot()
+    {
+        return new DrillArmRuntimeSnapshot(
+            Status,
+            ControlService.LastRuntimeState ?? Mechanism.GetRuntimeState(),
+            ControlService.ActiveTargets,
+            ControlService.IsForearmOrientationHoldEnabled,
+            ControlService.ForearmOrientationErrorDegrees);
+    }
+
     internal void ReplaceManualInputController(
         DrillArmManualInputController manualInputController)
     {
