@@ -6,6 +6,7 @@ public readonly record struct DrillArmTargets(
     double UpperArmExtension,
     double Elbow,
     double ForearmExtension,
+    double ForearmHinge,
     double WristRotation,
     double WristHinge,
     double ToolExtension)
@@ -19,6 +20,7 @@ public readonly record struct DrillArmTargets(
             UpperArmExtension,
             Elbow,
             ForearmExtension,
+            ForearmHinge,
             WristRotation,
             WristHinge,
             ToolExtension

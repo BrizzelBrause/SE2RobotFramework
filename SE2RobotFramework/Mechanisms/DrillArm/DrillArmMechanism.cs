@@ -27,6 +27,7 @@ public class DrillArmMechanism
             CreateController(Axes.UpperArmExtension, Hardware.UpperArmExtension),
             CreateController(Axes.Elbow, Hardware.Elbow),
             CreateController(Axes.ForearmExtension, Hardware.ForearmExtension),
+            CreateController(Axes.ForearmHinge, Hardware.ForearmHinge),
             CreateController(Axes.WristRotation, Hardware.WristRotation),
             CreateController(Axes.WristHinge, Hardware.WristHinge),
             CreateController(Axes.ToolExtension, Hardware.ToolExtension)
@@ -54,6 +55,7 @@ public class DrillArmMechanism
         Axes.UpperArmExtension.SetTargetPosition(targets.UpperArmExtension);
         Axes.Elbow.SetTargetPosition(targets.Elbow);
         Axes.ForearmExtension.SetTargetPosition(targets.ForearmExtension);
+        Axes.ForearmHinge.SetTargetPosition(targets.ForearmHinge);
         Axes.WristRotation.SetTargetPosition(targets.WristRotation);
         Axes.WristHinge.SetTargetPosition(targets.WristHinge);
         Axes.ToolExtension.SetTargetPosition(targets.ToolExtension);

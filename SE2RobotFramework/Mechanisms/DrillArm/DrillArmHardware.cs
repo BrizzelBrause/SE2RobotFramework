@@ -14,6 +14,8 @@ public class DrillArmHardware
 
     public required IAxisHardware ForearmExtension { get; init; }
 
+    public required IAxisHardware ForearmHinge { get; init; }
+
     public required IAxisHardware WristRotation { get; init; }
 
     public required IAxisHardware WristHinge { get; init; }

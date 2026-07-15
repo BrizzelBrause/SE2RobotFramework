@@ -100,6 +100,7 @@ public class MechanismFactoryTests
             UpperArmExtension = new PistonBankAxisHardware(CreatePistons(5, 4)),
             Elbow = new FakeAxisHardware(),
             ForearmExtension = new PistonBankAxisHardware(CreatePistons(5, 3)),
+            ForearmHinge = new FakeAxisHardware(),
             WristRotation = new FakeAxisHardware(),
             WristHinge = new FakeAxisHardware(),
             ToolExtension = new PistonBankAxisHardware(CreatePistons(1, 1))
@@ -125,6 +126,7 @@ public class MechanismFactoryTests
             UpperArmExtension = new PistonBankAxisHardware(CreatePistons(4, 4)),
             Elbow = new FakeAxisHardware(),
             ForearmExtension = new PistonBankAxisHardware(CreatePistons(5, 3)),
+            ForearmHinge = new FakeAxisHardware(),
             WristRotation = new FakeAxisHardware(),
             WristHinge = new FakeAxisHardware(),
             ToolExtension = new PistonBankAxisHardware(CreatePistons(1, 1))
@@ -153,6 +155,7 @@ public class MechanismFactoryTests
                 SeriesCount = 3,
                 ParallelCount = 5
             },
+            ForearmHinge = CreateAxis("DrillArm.ForearmHinge", AxisType.Rotational, 3.0),
             WristRotation = CreateAxis("DrillArm.WristRotation", AxisType.Rotational, 2.0),
             WristHinge = CreateAxis("DrillArm.WristHinge", AxisType.Rotational, 2.0),
             ToolExtension = CreateAxis("DrillArm.Tool", AxisType.Linear, 1.0),

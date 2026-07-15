@@ -14,6 +14,8 @@ public class DrillArmAxes
 
     public required LinearAxis ForearmExtension { get; init; }
 
+    public required RotationalAxis ForearmHinge { get; init; }
+
     public required RotationalAxis WristRotation { get; init; }
 
     public required RotationalAxis WristHinge { get; init; }

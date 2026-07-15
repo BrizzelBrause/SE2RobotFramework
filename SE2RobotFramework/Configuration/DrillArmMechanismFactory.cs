@@ -48,6 +48,7 @@ public class DrillArmMechanismFactory
             UpperArmExtension = CreateLinear(configuration.UpperArmExtension),
             Elbow = CreateRotational(configuration.Elbow),
             ForearmExtension = CreateLinear(configuration.ForearmExtension),
+            ForearmHinge = CreateRotational(configuration.ForearmHinge),
             WristRotation = CreateRotational(configuration.WristRotation),
             WristHinge = CreateRotational(configuration.WristHinge),
             ToolExtension = CreateLinear(configuration.ToolExtension)

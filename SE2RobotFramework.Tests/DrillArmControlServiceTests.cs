@@ -74,7 +74,7 @@ public class DrillArmControlServiceTests
         DrillArmControlService Service,
         FakeAxisHardware[] Hardware) CreateService()
     {
-        FakeAxisHardware[] hardware = Enumerable.Range(0, 8)
+        FakeAxisHardware[] hardware = Enumerable.Range(0, 9)
             .Select(_ => new FakeAxisHardware())
             .ToArray();
         DrillArmMechanism mechanism = new(
@@ -85,9 +85,10 @@ public class DrillArmControlServiceTests
                 UpperArmExtension = hardware[2],
                 Elbow = hardware[3],
                 ForearmExtension = hardware[4],
-                WristRotation = hardware[5],
-                WristHinge = hardware[6],
-                ToolExtension = hardware[7]
+                ForearmHinge = hardware[5],
+                WristRotation = hardware[6],
+                WristHinge = hardware[7],
+                ToolExtension = hardware[8]
             },
             new DrillArmAxes
             {
@@ -96,6 +97,7 @@ public class DrillArmControlServiceTests
                 UpperArmExtension = CreateLinearAxis("DrillArm.UpperArm"),
                 Elbow = CreateRotationalAxis("DrillArm.Elbow"),
                 ForearmExtension = CreateLinearAxis("DrillArm.Forearm"),
+                ForearmHinge = CreateRotationalAxis("DrillArm.ForearmHinge"),
                 WristRotation = CreateRotationalAxis("DrillArm.WristRotation"),
                 WristHinge = CreateRotationalAxis("DrillArm.WristHinge"),
                 ToolExtension = CreateLinearAxis("DrillArm.Tool")
@@ -109,6 +111,7 @@ public class DrillArmControlServiceTests
     private static DrillArmTargets CreateTargets(double value)
     {
         return new DrillArmTargets(
+            value,
             value,
             value,
             value,

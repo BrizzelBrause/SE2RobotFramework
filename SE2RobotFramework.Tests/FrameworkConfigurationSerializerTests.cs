@@ -99,6 +99,7 @@ public class FrameworkConfigurationSerializerTests
                 SeriesCount = 3,
                 ParallelCount = 5
             },
+            ForearmHinge = CreateAxis("DrillArm.ForearmHinge", AxisType.Rotational, 3.0),
             WristRotation = CreateAxis("DrillArm.WristRotation", AxisType.Rotational, 2.0),
             WristHinge = CreateAxis("DrillArm.WristHinge", AxisType.Rotational, 2.0),
             ToolExtension = CreateAxis("DrillArm.Tool", AxisType.Linear, 1.0),
