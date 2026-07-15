@@ -50,6 +50,14 @@ public class SolarArrayRuntime
         TrackingService.Stop();
     }
 
+    public SolarArrayRuntimeSnapshot GetSnapshot()
+    {
+        return new SolarArrayRuntimeSnapshot(
+            Status,
+            TrackingController.GetRuntimeState(),
+            LastOrientation);
+    }
+
     internal void ReplaceTrackingComponents(
         SolarTrackingController trackingController,
         SolarTrackingService trackingService)

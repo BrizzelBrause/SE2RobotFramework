@@ -57,6 +57,7 @@ public class MechanismFactoryTests
                 Vector3.Normalize(new Vector3(1.0f, 1.0f, 1.0f))));
 
         runtime.Update(0.1);
+        SolarArrayRuntimeSnapshot snapshot = runtime.GetSnapshot();
 
         Assert.Equal(SolarTrackingServiceStatus.Tracking, runtime.Status);
         Assert.NotNull(runtime.LastOrientation);
@@ -64,6 +65,9 @@ public class MechanismFactoryTests
             firstElevation.CommandedVelocity,
             -secondElevation.CommandedVelocity);
         Assert.False(runtime.RuntimeState.HasFault);
+        Assert.Equal(runtime.Status, snapshot.Status);
+        Assert.Equal(2, snapshot.MechanismState.Axes.Count);
+        Assert.Equal(runtime.LastOrientation, snapshot.LastOrientation);
 
         runtime.Stop();
 
