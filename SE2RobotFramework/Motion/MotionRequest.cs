@@ -4,11 +4,7 @@ public class MotionRequest
 {
     public double RemainingDistance { get; init; }
 
-    public double MaximumSpeed { get; init; }
-
-    public double MaximumAcceleration { get; init; }
-
-    public double MaximumJerk { get; init; }
+    public MotionLimits Limits { get; init; } = new();
 
     public double DeltaTime { get; init; }
 

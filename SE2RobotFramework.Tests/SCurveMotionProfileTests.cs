@@ -12,9 +12,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 10.0,
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -36,9 +39,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 10.0,
             CurrentVelocity = 3.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -60,9 +66,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -85,9 +94,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 1.0,
             CurrentVelocity = 4.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -109,9 +121,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 1.0,
             CurrentVelocity = 10.0,
             CurrentAcceleration = -5.0,
-            MaximumSpeed = 12.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 12.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -133,9 +148,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.2,
             CurrentVelocity = 0.5,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -161,9 +179,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.75,
             CurrentAcceleration = -1.7320508075688772,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -183,9 +204,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = -0.75,
             CurrentAcceleration = 1.7320508075688772,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -205,9 +229,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.5,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -227,9 +254,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.49,
             CurrentAcceleration = -0.2,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -249,9 +279,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 2.0,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -271,9 +304,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.5,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -293,9 +329,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 10.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 12.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 12.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -315,9 +354,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.25,
             CurrentAcceleration = -1.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -337,9 +379,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.5,
             CurrentAcceleration = -0.5,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -359,9 +404,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 10.0,
             CurrentAcceleration = -0.5,
-            MaximumSpeed = 12.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 12.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -381,9 +429,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.0,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 12.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 12.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -403,9 +454,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.5,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -425,9 +479,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = -1.0,
             CurrentAcceleration = 2.0,
-            MaximumSpeed = 12.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 1.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 12.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 1.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -447,9 +504,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.00005,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -469,9 +529,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.5,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -491,9 +554,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.5,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -514,9 +580,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 1.0,
             CurrentAcceleration = 2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -536,9 +605,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 4.8,
             CurrentAcceleration = 2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -558,9 +630,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 5.0,
             CurrentAcceleration = 1.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -580,9 +655,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -602,9 +680,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = -4.8,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -624,9 +705,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 1.0,
             CurrentVelocity = -4.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -646,9 +730,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = -0.5,
             CurrentAcceleration = 2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -668,9 +755,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 1.0,
             CurrentVelocity = -10.0,
             CurrentAcceleration = 2.0,
-            MaximumSpeed = 12.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 12.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -690,9 +780,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = -5.0,
             CurrentAcceleration = -1.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -712,9 +805,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = -4.8,
             CurrentAcceleration = -2.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = -1
         };
@@ -737,9 +833,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 5.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -759,9 +858,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = -4.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -783,9 +885,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -807,9 +912,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 1.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -831,9 +939,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = -1.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -855,9 +966,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.0,
             CurrentAcceleration = 1.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -878,9 +992,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 5.0,
             CurrentAcceleration = 0.1,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -901,9 +1018,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.001,
             CurrentAcceleration = -0.1,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -924,9 +1044,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 4.999,
             CurrentAcceleration = 0.1,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -947,9 +1070,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 0.0,
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.1,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 0
         };
@@ -970,9 +1096,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 5.0,
             CurrentAcceleration = 0.1,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.0,
             Direction = 1
         };
@@ -990,9 +1119,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 1.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 2.0,
-            MaximumJerk = 0.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 2.0,
+                MaximumJerk = 0.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
@@ -1010,9 +1142,12 @@ public class SCurveMotionProfileTests
             RemainingDistance = 100.0,
             CurrentVelocity = 1.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 5.0,
-            MaximumAcceleration = 0.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 0.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1,
             Direction = 1
         };
