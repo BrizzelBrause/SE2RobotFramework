@@ -15,6 +15,7 @@ A .NET framework for motion control and robot axis simulation.
 - Configurable piston banks with 1-6 pistons per row and any number of parallel rows
 - Selectable two-axis solar array mechanisms for hinge, single-rotor, and mirrored dual-rotor elevation
 - Eight-axis drill-arm mechanism with configurable piston banks and coupled joints
+- Serializable and validated runtime configuration for axes, solar arrays, and drill arms
 - Fake hardware implementations for testing
 - Automated unit tests
 
