@@ -57,12 +57,26 @@ public class DrillArmMouseController
             axes.WristHinge.TargetPosition,
             axes.ToolExtension.TargetPosition);
 
+        _controlService.EnableForearmOrientationHold();
         _controlService.MoveTo(targets);
 
         return new DrillArmMouseControlResult(
             targets,
             requiredCompensation - actualCompensation);
     }
+
+    public void Update(double deltaTime)
+    {
+        _controlService.Update(deltaTime);
+    }
+
+    public DrillArmControlStatus Status => _controlService.Status;
+
+    public bool IsForearmOrientationHoldEnabled =>
+        _controlService.IsForearmOrientationHoldEnabled;
+
+    public double ForearmOrientationErrorDegrees =>
+        _controlService.ForearmOrientationErrorDegrees;
 
     private static double ApplyDelta(Axis axis, double delta)
     {

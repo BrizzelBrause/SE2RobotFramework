@@ -6,6 +6,7 @@ public class DrillArmControlService
 {
     private readonly DrillArmMechanism _mechanism;
     private bool _hasActiveCommand;
+    private double? _forearmOrientationReference;
 
     public DrillArmControlService(DrillArmMechanism mechanism)
     {
@@ -18,6 +19,14 @@ public class DrillArmControlService
     public DrillArmTargets? ActiveTargets { get; private set; }
 
     public MechanismRuntimeState? LastRuntimeState { get; private set; }
+
+    public bool IsForearmOrientationHoldEnabled =>
+        _forearmOrientationReference.HasValue;
+
+    public double ForearmOrientationErrorDegrees =>
+        _forearmOrientationReference.HasValue
+            ? GetCurrentForearmOrientation() - _forearmOrientationReference.Value
+            : 0.0;
 
     public void MoveTo(DrillArmTargets targets)
     {
@@ -39,6 +48,8 @@ public class DrillArmControlService
         {
             return;
         }
+
+        UpdateForearmHingeTarget();
 
         _mechanism.Update(deltaTime);
         LastRuntimeState = _mechanism.GetRuntimeState();
@@ -66,10 +77,44 @@ public class DrillArmControlService
         StopInternal(DrillArmControlStatus.Stopped);
     }
 
+    public void EnableForearmOrientationHold()
+    {
+        _forearmOrientationReference = GetCurrentForearmOrientation();
+    }
+
+    public void DisableForearmOrientationHold()
+    {
+        _forearmOrientationReference = null;
+    }
+
     private void StopInternal(DrillArmControlStatus status)
     {
         _mechanism.Stop();
         _hasActiveCommand = false;
+        _forearmOrientationReference = null;
         Status = status;
+    }
+
+    private void UpdateForearmHingeTarget()
+    {
+        if (!_forearmOrientationReference.HasValue)
+        {
+            return;
+        }
+
+        double target =
+            _forearmOrientationReference.Value -
+            _mechanism.Axes.Shoulder.CurrentPosition -
+            _mechanism.Axes.Elbow.CurrentPosition;
+
+        _mechanism.Axes.ForearmHinge.SetTargetPosition(target);
+    }
+
+    private double GetCurrentForearmOrientation()
+    {
+        return
+            _mechanism.Axes.Shoulder.CurrentPosition +
+            _mechanism.Axes.Elbow.CurrentPosition +
+            _mechanism.Axes.ForearmHinge.CurrentPosition;
     }
 }
