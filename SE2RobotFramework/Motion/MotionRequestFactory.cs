@@ -16,12 +16,7 @@ public class MotionRequestFactory
         return new MotionRequest
         {
             RemainingDistance = Math.Abs(axis.GetError()),
-            Limits = new MotionLimits
-            {
-                MaximumSpeed = axis.MovementSpeed,
-                MaximumAcceleration = axis.MaximumAcceleration,
-                MaximumJerk = axis.MaximumJerk
-            },
+            Limits = axis.MotionLimits,
             CurrentVelocity = hardware.GetVelocity(),
             CurrentAcceleration = currentAcceleration,
             Direction = axis.GetDirection(),

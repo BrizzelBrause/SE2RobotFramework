@@ -12,8 +12,12 @@ public class MotionControllerTests
     {
         RotationalAxis axis = new RotationalAxis
         {
-            MovementSpeed = 5.0,
-            MaximumAcceleration = 1.0,
+            MotionLimits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 1.0,
+                MaximumJerk = 0.0
+            },
             MotionProfileType = MotionProfileType.Trapezoidal,
             Tolerance = 0.5,
             WrapAround = true
@@ -56,8 +60,12 @@ public class MotionControllerTests
     {
         RotationalAxis axis = new RotationalAxis
         {
-            MovementSpeed = 5.0,
-            MaximumAcceleration = 1.0,
+            MotionLimits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 1.0,
+                MaximumJerk = 0.0
+            },
             MotionProfileType = MotionProfileType.Trapezoidal,
             Tolerance = 0.5,
             WrapAround = true
@@ -98,8 +106,12 @@ public class MotionControllerTests
     {
         RotationalAxis axis = new RotationalAxis
         {
-            MovementSpeed = 5.0,
-            MaximumAcceleration = 1.0,
+            MotionLimits = new MotionLimits
+            {
+                MaximumSpeed = 5.0,
+                MaximumAcceleration = 1.0,
+                MaximumJerk = 0.0
+            },
             MotionProfileType = MotionProfileType.Trapezoidal,
             Tolerance = 0.5,
             WrapAround = true

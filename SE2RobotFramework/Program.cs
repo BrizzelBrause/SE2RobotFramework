@@ -6,8 +6,12 @@ using SE2RobotFramework.Motion;
 RotationalAxis axis = new RotationalAxis
 {
     Name = "Solar.Azimuth",
-    MovementSpeed = 5.0,
+MotionLimits = new MotionLimits
+    {
+    MaximumSpeed = 5.0,
     MaximumAcceleration = 1.0,
+    MaximumJerk = 0.0
+    },
     MotionProfileType = MotionProfileType.Trapezoidal,
     Tolerance = 0.5,
     WrapAround = true
