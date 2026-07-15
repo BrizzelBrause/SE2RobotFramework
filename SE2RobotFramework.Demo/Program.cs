@@ -57,3 +57,7 @@ controller.Update(deltaTime);
 Console.WriteLine(axis.IsAtTarget()
     ? "Simulation completed successfully."
     : $"Simulation stopped with an error of {Math.Abs(axis.GetError()):0.000} deg.");
+
+Console.WriteLine();
+Console.WriteLine("Drill-arm manual input simulation:");
+DrillArmDemo.Run();
