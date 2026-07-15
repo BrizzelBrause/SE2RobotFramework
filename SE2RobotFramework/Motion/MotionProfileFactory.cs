@@ -6,6 +6,8 @@ public class MotionProfileFactory : IMotionProfileFactory
     {
         return profileType switch
         {
+            MotionProfileType.Linear => new LinearMotionProfile(),
+
             MotionProfileType.SCurve => new SCurveMotionProfile(),
 
             MotionProfileType.Trapezoidal => new TrapezoidalMotionProfile(),

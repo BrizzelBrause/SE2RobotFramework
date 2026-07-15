@@ -6,8 +6,12 @@ A .NET framework for motion control and robot axis simulation.
 
 - S-curve motion profile
 - Trapezoidal motion profile
+- Constant-speed linear motion profile
 - Motion state integration
 - Linear and rotational axis abstractions
+- Direction and zero-point transformation for mounted actuators
+- Parallel actuator groups for coupled rotors
+- Series actuator groups for piston chains
 - Fake hardware implementations for testing
 - Automated unit tests
 
