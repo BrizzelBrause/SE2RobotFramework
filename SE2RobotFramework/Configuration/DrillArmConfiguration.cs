@@ -30,6 +30,8 @@ public class DrillArmConfiguration
 
     public DrillArmMouseControlConfiguration MouseControl { get; init; } = new();
 
+    public DrillArmKeyboardControlConfiguration KeyboardControl { get; init; } = new();
+
     public void Validate()
     {
         ValidateAxis(BaseRotation, AxisType.Rotational, nameof(BaseRotation));
@@ -46,6 +48,8 @@ public class DrillArmConfiguration
         ValidatePistonBank(ToolPistons, nameof(ToolPistons));
         ArgumentNullException.ThrowIfNull(MouseControl);
         MouseControl.Validate();
+        ArgumentNullException.ThrowIfNull(KeyboardControl);
+        KeyboardControl.Validate();
     }
 
     private static void ValidateAxis(
