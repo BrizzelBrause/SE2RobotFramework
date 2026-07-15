@@ -62,6 +62,11 @@ The console demonstration can be started with:
 dotnet run --project SE2RobotFramework.Demo
 ```
 
+## Continuous integration
+
+Every push and pull request to `master` restores and builds the complete solution,
+runs all unit tests, and executes the console demonstration as a smoke test.
+
 ## Status
 
 The project is under active development.
