@@ -10,6 +10,10 @@ public class DrillArmKeyboardControlConfiguration
 
     public double ToolExtensionMetersPerSecond { get; init; } = 1.0;
 
+    public double WristRotationDegreesPerSecond { get; init; } = 30.0;
+
+    public double WristHingeDegreesPerSecond { get; init; } = 30.0;
+
     public void Validate()
     {
         ValidateRate(
@@ -24,6 +28,12 @@ public class DrillArmKeyboardControlConfiguration
         ValidateRate(
             ToolExtensionMetersPerSecond,
             nameof(ToolExtensionMetersPerSecond));
+        ValidateRate(
+            WristRotationDegreesPerSecond,
+            nameof(WristRotationDegreesPerSecond));
+        ValidateRate(
+            WristHingeDegreesPerSecond,
+            nameof(WristHingeDegreesPerSecond));
     }
 
     private static void ValidateRate(double value, string parameterName)

@@ -55,8 +55,16 @@ public class DrillArmKeyboardController
                 input.ForearmHinge,
                 Configuration.ForearmHingeDegreesPerSecond,
                 deltaTime),
-            axes.WristRotation.TargetPosition,
-            axes.WristHinge.TargetPosition,
+            ApplyInput(
+                axes.WristRotation,
+                input.WristRotation,
+                Configuration.WristRotationDegreesPerSecond,
+                deltaTime),
+            ApplyInput(
+                axes.WristHinge,
+                input.WristHinge,
+                Configuration.WristHingeDegreesPerSecond,
+                deltaTime),
             ApplyInput(
                 axes.ToolExtension,
                 input.ToolExtension,

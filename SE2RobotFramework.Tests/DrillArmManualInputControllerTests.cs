@@ -48,6 +48,31 @@ public class DrillArmManualInputControllerTests
         Assert.True(service.IsForearmOrientationHoldEnabled);
     }
 
+    [Fact]
+    public void Process_WristOnlyInput_IsAppliedAsKeyboardInput()
+    {
+        (DrillArmManualInputController controller, DrillArmMechanism mechanism, _) =
+            CreateController();
+
+        DrillArmManualInputResult result = controller.Process(
+            new DrillArmManualInput(
+                default,
+                new DrillArmKeyboardInput(
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    WristRotation: -1.0,
+                    WristHinge: 1.0)),
+            1.0);
+
+        Assert.Equal(-30.0, result.Targets.WristRotation);
+        Assert.Equal(30.0, result.Targets.WristHinge);
+        Assert.Equal(
+            result.Targets.WristRotation,
+            mechanism.Axes.WristRotation.TargetPosition);
+    }
+
     private static (
         DrillArmManualInputController Controller,
         DrillArmMechanism Mechanism,
