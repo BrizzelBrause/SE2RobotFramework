@@ -21,4 +21,6 @@ public class DrillArmHardware
     public required IAxisHardware WristHinge { get; init; }
 
     public required IAxisHardware ToolExtension { get; init; }
+
+    public ISwitchableHardware? DrillHead { get; init; }
 }

@@ -8,4 +8,5 @@ public readonly record struct DrillArmRuntimeSnapshot(
     DrillArmTargets? ActiveTargets,
     bool IsForearmOrientationHoldEnabled,
     bool IsForearmCompensationLimitLatched,
-    double ForearmOrientationErrorDegrees);
+    double ForearmOrientationErrorDegrees,
+    SwitchableControllerStatus? DrillHeadStatus);
