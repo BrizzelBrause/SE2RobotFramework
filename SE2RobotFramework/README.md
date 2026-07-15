@@ -12,6 +12,7 @@ A .NET framework for motion control and robot axis simulation.
 - Direction and zero-point transformation for mounted actuators
 - Parallel actuator groups for coupled rotors
 - Series actuator groups for piston chains
+- Configurable piston banks with 1-6 pistons per row and any number of parallel rows
 - Fake hardware implementations for testing
 - Automated unit tests
 
