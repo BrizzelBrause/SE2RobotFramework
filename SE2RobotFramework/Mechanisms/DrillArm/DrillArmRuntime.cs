@@ -9,7 +9,8 @@ public class DrillArmRuntime
         DrillArmMechanism mechanism,
         DrillArmControlService controlService,
         DrillArmManualInputController manualInputController,
-        DrillArmConfiguration activeConfiguration)
+        DrillArmConfiguration activeConfiguration,
+        SwitchableController? drillHeadController)
     {
         Mechanism = mechanism ?? throw new ArgumentNullException(nameof(mechanism));
         ControlService = controlService ??
@@ -18,6 +19,7 @@ public class DrillArmRuntime
             throw new ArgumentNullException(nameof(manualInputController));
         ActiveConfiguration = activeConfiguration ??
             throw new ArgumentNullException(nameof(activeConfiguration));
+        DrillHeadController = drillHeadController;
     }
 
     public DrillArmMechanism Mechanism { get; }
@@ -27,6 +29,8 @@ public class DrillArmRuntime
     public DrillArmManualInputController ManualInputController { get; private set; }
 
     public DrillArmConfiguration ActiveConfiguration { get; private set; }
+
+    public SwitchableController? DrillHeadController { get; }
 
     public DrillArmControlStatus Status => ControlService.Status;
 
@@ -43,6 +47,12 @@ public class DrillArmRuntime
     public void Stop()
     {
         ControlService.Stop();
+        DrillHeadController?.Stop();
+    }
+
+    public bool SetDrillHeadEnabled(bool enabled)
+    {
+        return DrillHeadController?.SetEnabled(enabled) ?? false;
     }
 
     public DrillArmRuntimeSnapshot GetSnapshot()
@@ -53,7 +63,8 @@ public class DrillArmRuntime
             ControlService.ActiveTargets,
             ControlService.IsForearmOrientationHoldEnabled,
             ControlService.IsForearmCompensationLimitLatched,
-            ControlService.ForearmOrientationErrorDegrees);
+            ControlService.ForearmOrientationErrorDegrees,
+            DrillHeadController?.Status);
     }
 
     internal void ReplaceManualInputController(

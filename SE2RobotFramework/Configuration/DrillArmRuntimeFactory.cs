@@ -1,3 +1,4 @@
+using SE2RobotFramework.Controllers;
 using SE2RobotFramework.Mechanisms.DrillArm;
 
 namespace SE2RobotFramework.Configuration;
@@ -46,6 +47,9 @@ public class DrillArmRuntimeFactory
             mechanism,
             controlService,
             manualInputController,
-            configuration);
+            configuration,
+            hardware.DrillHead is null
+                ? null
+                : new SwitchableController(hardware.DrillHead));
     }
 }

@@ -1,5 +1,6 @@
 using System.Numerics;
 using SE2RobotFramework.Configuration;
+using SE2RobotFramework.Controllers;
 using SE2RobotFramework.Hardware;
 using SE2RobotFramework.Mechanisms.DrillArm;
 using SE2RobotFramework.Mechanisms.Solar;
@@ -259,6 +260,7 @@ public class MechanismFactoryTests
     [Fact]
     public void DrillArmRuntimeFactory_WiresConfiguredManualControlPipeline()
     {
+        FakeSwitchableHardware drillHead = new();
         DrillArmRuntime runtime = new DrillArmRuntimeFactory().Create(
             CreateDrillArmConfiguration(),
             new DrillArmHardware
@@ -274,7 +276,8 @@ public class MechanismFactoryTests
                 WristRotation = new FakeAxisHardware(),
                 WristHinge = new FakeAxisHardware(),
                 ToolExtension = new PistonBankAxisHardware(
-                    CreatePistons(1, 1))
+                    CreatePistons(1, 1)),
+                DrillHead = drillHead
             });
 
         DrillArmManualInputResult result = runtime.ProcessManualInput(
@@ -297,10 +300,19 @@ public class MechanismFactoryTests
         Assert.Equal(
             runtime.ControlService.ForearmOrientationErrorDegrees,
             snapshot.ForearmOrientationErrorDegrees);
+        Assert.True(runtime.SetDrillHeadEnabled(true));
+        Assert.True(drillHead.IsEnabled);
+        Assert.Equal(
+            SwitchableControllerStatus.Enabled,
+            runtime.GetSnapshot().DrillHeadStatus);
 
         runtime.Stop();
 
         Assert.Equal(DrillArmControlStatus.Stopped, runtime.Status);
+        Assert.False(drillHead.IsEnabled);
+        Assert.Equal(
+            SwitchableControllerStatus.Stopped,
+            runtime.GetSnapshot().DrillHeadStatus);
     }
 
     [Fact]
