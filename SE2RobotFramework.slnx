@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="SE2RobotFramework.Tests/SE2RobotFramework.Tests.csproj" />
+  <Project Path="SE2RobotFramework.Demo/SE2RobotFramework.Demo.csproj" />
   <Project Path="SE2RobotFramework/SE2RobotFramework.csproj" />
 </Solution>

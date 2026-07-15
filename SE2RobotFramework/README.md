@@ -34,17 +34,33 @@ A .NET framework for motion control and robot axis simulation.
 
 Contains the motion-control implementation and axis abstractions.
 
+This project builds as a reusable class library and contains no game or console entry point.
+
+### SE2RobotFramework.Demo
+
+Contains a standalone console simulation demonstrating the framework without game dependencies.
+
 ### SE2RobotFramework.Tests
 
 Contains the automated test suite for the framework.
 
 ## Build
 
-Open `SE2RobotFramework.sln` in Visual Studio and build the solution.
+Open `SE2RobotFramework.slnx` in Visual Studio or run:
+
+```shell
+dotnet build SE2RobotFramework.slnx
+```
 
 ## Tests
 
 Run the test suite using Visual Studio Test Explorer.
+
+The console demonstration can be started with:
+
+```shell
+dotnet run --project SE2RobotFramework.Demo
+```
 
 ## Status
 
