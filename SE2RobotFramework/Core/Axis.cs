@@ -12,11 +12,7 @@ public class Axis
 
     public double TargetPosition { get; private set; }
 
-    public double MovementSpeed { get; set; }
-
-    public double MaximumAcceleration { get; set; }
-
-    public double MaximumJerk { get; set; }
+    public MotionLimits MotionLimits { get; set; } = new();
 
     public MotionProfileType MotionProfileType { get; set; } = MotionProfileType.SCurve;
 
