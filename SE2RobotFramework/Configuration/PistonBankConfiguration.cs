@@ -8,6 +8,8 @@ public class PistonBankConfiguration
 
     public int ParallelCount { get; init; }
 
+    public double? MaximumRowSynchronizationError { get; init; }
+
     public void Validate()
     {
         if (SeriesCount < 1 ||
@@ -19,6 +21,13 @@ public class PistonBankConfiguration
         if (ParallelCount < 1)
         {
             throw new ArgumentOutOfRangeException(nameof(ParallelCount));
+        }
+
+        if (MaximumRowSynchronizationError.HasValue &&
+            (!double.IsFinite(MaximumRowSynchronizationError.Value) ||
+             MaximumRowSynchronizationError.Value < 0.0))
+        {
+            throw new ArgumentOutOfRangeException(nameof(MaximumRowSynchronizationError));
         }
     }
 }

@@ -33,6 +33,31 @@ public class MechanismFactoryTests
     }
 
     [Fact]
+    public void SolarFactory_WithDesynchronizedDualRotors_BlocksMovement()
+    {
+        FakeAxisHardware firstElevationRotor = new();
+        FakeAxisHardware secondElevationRotor = new();
+        secondElevationRotor.SetPosition(-5.0);
+        SolarArrayConfiguration configuration = new()
+        {
+            Type = SolarArrayType.BaseRotorWithDualRotors,
+            AzimuthAxis = CreateAxis("Solar.Azimuth", AxisType.Rotational, 5.0),
+            ElevationAxis = CreateAxis("Solar.Elevation", AxisType.Rotational, 3.0),
+            MaximumElevationSynchronizationError = 2.0
+        };
+
+        SolarArrayMechanism mechanism = new SolarArrayMechanismFactory().Create(
+            configuration,
+            new FakeAxisHardware(),
+            new[] { firstElevationRotor, secondElevationRotor });
+        mechanism.SetTargetOrientation(0.0, 30.0);
+        mechanism.Update(0.1);
+
+        Assert.Equal(0.0, firstElevationRotor.CommandedVelocity);
+        Assert.Equal(0.0, secondElevationRotor.CommandedVelocity);
+    }
+
+    [Fact]
     public void PistonBankFactory_WithMatchingLayout_CreatesHardware()
     {
         PistonBankConfiguration configuration = new()

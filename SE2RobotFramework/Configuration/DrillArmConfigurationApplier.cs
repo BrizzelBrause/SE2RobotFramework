@@ -59,7 +59,9 @@ public class DrillArmConfigurationApplier
         }
 
         if (configuration.SeriesCount != pistonBank.SeriesCount ||
-            configuration.ParallelCount != pistonBank.ParallelCount)
+            configuration.ParallelCount != pistonBank.ParallelCount ||
+            (configuration.MaximumRowSynchronizationError ?? double.PositiveInfinity) !=
+                pistonBank.MaximumRowPositionDeviation)
         {
             throw new InvalidOperationException(
                 $"Changing {configurationName} requires rebuilding its hardware binding.");
