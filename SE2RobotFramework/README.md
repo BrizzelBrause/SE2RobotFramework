@@ -37,6 +37,7 @@ A .NET framework for motion control and robot axis simulation.
 - Versioned JSON loading directly into existing drill-arm and solar runtimes
 - Structured runtime-configuration results for safe in-game error reporting
 - Active runtime-configuration snapshots with versioned JSON export
+- Drill-arm runtime snapshots for HUD status and orientation-hold diagnostics
 - Fake hardware implementations for testing
 - Automated unit tests
 

@@ -275,13 +275,21 @@ public class MechanismFactoryTests
 
         DrillArmManualInputResult result = runtime.ProcessManualInput(
             new DrillArmManualInput(
-                default,
+                new DrillArmMouseInput(0.0, 1.0),
                 new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0)),
             0.1);
+        DrillArmRuntimeSnapshot snapshot = runtime.GetSnapshot();
 
         Assert.Equal(0.1, result.Targets.UpperArmExtension);
         Assert.NotNull(runtime.ControlService.ActiveTargets);
         Assert.NotNull(runtime.LastRuntimeState);
+        Assert.Equal(runtime.Status, snapshot.Status);
+        Assert.Equal(9, snapshot.MechanismState.Axes.Count);
+        Assert.NotNull(snapshot.ActiveTargets);
+        Assert.True(snapshot.IsForearmOrientationHoldEnabled);
+        Assert.Equal(
+            runtime.ControlService.ForearmOrientationErrorDegrees,
+            snapshot.ForearmOrientationErrorDegrees);
 
         runtime.Stop();
 
