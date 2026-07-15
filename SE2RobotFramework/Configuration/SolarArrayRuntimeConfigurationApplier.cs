@@ -42,5 +42,6 @@ public class SolarArrayRuntimeConfigurationApplier
         runtime.ReplaceTrackingComponents(
             trackingController,
             trackingService);
+        runtime.ReplaceActiveConfiguration(configuration);
     }
 }

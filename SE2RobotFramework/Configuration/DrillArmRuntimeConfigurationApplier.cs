@@ -40,5 +40,6 @@ public class DrillArmRuntimeConfigurationApplier
                 runtime.Mechanism,
                 runtime.ControlService);
         runtime.ReplaceManualInputController(manualInputController);
+        runtime.ReplaceActiveConfiguration(configuration);
     }
 }

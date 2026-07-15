@@ -53,6 +53,18 @@ public class RuntimeConfigurationService
         return configuration;
     }
 
+    public string ExportDrillArm(DrillArmRuntime runtime)
+    {
+        ArgumentNullException.ThrowIfNull(runtime);
+        return _serializer.SerializeDrillArm(runtime.ActiveConfiguration);
+    }
+
+    public string ExportSolarArray(SolarArrayRuntime runtime)
+    {
+        ArgumentNullException.ThrowIfNull(runtime);
+        return _serializer.SerializeSolarArray(runtime.ActiveConfiguration);
+    }
+
     public RuntimeConfigurationApplyResult<DrillArmConfiguration>
         TryApplyDrillArm(string json, DrillArmRuntime runtime)
     {

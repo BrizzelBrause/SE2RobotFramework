@@ -45,6 +45,7 @@ public class DrillArmRuntimeFactory
         return new DrillArmRuntime(
             mechanism,
             controlService,
-            manualInputController);
+            manualInputController,
+            configuration);
     }
 }
