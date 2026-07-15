@@ -4,11 +4,17 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>SE2RobotFramework</Title>
+    <Description>Game-independent motion control for configurable solar arrays and drill arms.</Description>
+    <Authors>BrizzelBrause</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>robotics;motion-control;space-engineers;solar-tracking</PackageTags>
+    <RepositoryUrl>https://github.com/BrizzelBrause/SE2RobotFramework</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Math\" />
-    <Folder Include="Utilities\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
