@@ -1,5 +1,7 @@
 namespace SE2RobotFramework.Configuration;
 
+using SE2RobotFramework.Mechanisms.DrillArm;
+
 public class DrillArmConfiguration
 {
     public AxisConfiguration BaseRotation { get; init; } = new();
@@ -16,6 +18,8 @@ public class DrillArmConfiguration
 
     public PistonBankConfiguration ForearmPistons { get; init; } = new();
 
+    public AxisConfiguration ForearmHinge { get; init; } = new();
+
     public AxisConfiguration WristRotation { get; init; } = new();
 
     public AxisConfiguration WristHinge { get; init; } = new();
@@ -23,6 +27,8 @@ public class DrillArmConfiguration
     public AxisConfiguration ToolExtension { get; init; } = new();
 
     public PistonBankConfiguration ToolPistons { get; init; } = new();
+
+    public DrillArmMouseControlConfiguration MouseControl { get; init; } = new();
 
     public void Validate()
     {
@@ -33,10 +39,13 @@ public class DrillArmConfiguration
         ValidateAxis(Elbow, AxisType.Rotational, nameof(Elbow));
         ValidateAxis(ForearmExtension, AxisType.Linear, nameof(ForearmExtension));
         ValidatePistonBank(ForearmPistons, nameof(ForearmPistons));
+        ValidateAxis(ForearmHinge, AxisType.Rotational, nameof(ForearmHinge));
         ValidateAxis(WristRotation, AxisType.Rotational, nameof(WristRotation));
         ValidateAxis(WristHinge, AxisType.Rotational, nameof(WristHinge));
         ValidateAxis(ToolExtension, AxisType.Linear, nameof(ToolExtension));
         ValidatePistonBank(ToolPistons, nameof(ToolPistons));
+        ArgumentNullException.ThrowIfNull(MouseControl);
+        MouseControl.Validate();
     }
 
     private static void ValidateAxis(

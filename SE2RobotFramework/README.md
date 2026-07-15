@@ -14,7 +14,7 @@ A .NET framework for motion control and robot axis simulation.
 - Series actuator groups for piston chains
 - Configurable piston banks with 1-6 pistons per row and any number of parallel rows
 - Selectable two-axis solar array mechanisms for hinge, single-rotor, and mirrored dual-rotor elevation
-- Eight-axis drill-arm mechanism with configurable piston banks and coupled joints
+- Nine-axis drill-arm mechanism with configurable piston banks and coupled joints
 - Serializable and validated runtime configuration for axes, solar arrays, and drill arms
 - Live application of profile, limit, tolerance, and range changes without rebuilding controllers
 - Configuration-driven factories for complete solar-array and drill-arm mechanisms
@@ -25,6 +25,7 @@ A .NET framework for motion control and robot axis simulation.
 - Automatic solar-tracking service with a replaceable sun-vector provider and safe stop behavior
 - Versioned, human-readable JSON persistence for solar-array and drill-arm configurations
 - Safe joint-level drill-arm control service with target validation and fault handling
+- Configurable mouse control for base, shoulder, and elbow with compensating forearm hinge
 - Fake hardware implementations for testing
 - Automated unit tests
 

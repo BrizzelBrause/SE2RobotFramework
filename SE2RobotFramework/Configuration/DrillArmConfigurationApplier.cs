@@ -43,6 +43,7 @@ public class DrillArmConfigurationApplier
         _axisApplier.Apply(configuration.UpperArmExtension, mechanism.Axes.UpperArmExtension);
         _axisApplier.Apply(configuration.Elbow, mechanism.Axes.Elbow);
         _axisApplier.Apply(configuration.ForearmExtension, mechanism.Axes.ForearmExtension);
+        _axisApplier.Apply(configuration.ForearmHinge, mechanism.Axes.ForearmHinge);
         _axisApplier.Apply(configuration.WristRotation, mechanism.Axes.WristRotation);
         _axisApplier.Apply(configuration.WristHinge, mechanism.Axes.WristHinge);
         _axisApplier.Apply(configuration.ToolExtension, mechanism.Axes.ToolExtension);

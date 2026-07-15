@@ -11,7 +11,7 @@ public class DrillArmMechanismTests
     [Fact]
     public void Update_CommandsEveryLogicalAxis()
     {
-        FakeAxisHardware[] physicalHardware = Enumerable.Range(0, 8)
+        FakeAxisHardware[] physicalHardware = Enumerable.Range(0, 9)
             .Select(_ => new FakeAxisHardware())
             .ToArray();
         DrillArmMechanism mechanism = CreateMechanism(new DrillArmHardware
@@ -21,12 +21,14 @@ public class DrillArmMechanismTests
             UpperArmExtension = physicalHardware[2],
             Elbow = physicalHardware[3],
             ForearmExtension = physicalHardware[4],
-            WristRotation = physicalHardware[5],
-            WristHinge = physicalHardware[6],
-            ToolExtension = physicalHardware[7]
+            ForearmHinge = physicalHardware[5],
+            WristRotation = physicalHardware[6],
+            WristHinge = physicalHardware[7],
+            ToolExtension = physicalHardware[8]
         });
 
         mechanism.SetTargets(new DrillArmTargets(
+            10.0,
             10.0,
             10.0,
             10.0,
@@ -55,6 +57,7 @@ public class DrillArmMechanismTests
             UpperArmExtension = new PistonBankAxisHardware(upperArmPistons),
             Elbow = hardware.Elbow,
             ForearmExtension = new PistonBankAxisHardware(forearmPistons),
+            ForearmHinge = hardware.ForearmHinge,
             WristRotation = hardware.WristRotation,
             WristHinge = hardware.WristHinge,
             ToolExtension = hardware.ToolExtension
@@ -67,6 +70,7 @@ public class DrillArmMechanismTests
             10.0,
             0.0,
             10.0,
+            0.0,
             0.0,
             0.0,
             0.0));
@@ -97,6 +101,7 @@ public class DrillArmMechanismTests
                 new TransformedAxisHardware(secondElbow, scale: -1.0)
             }),
             ForearmExtension = hardware.ForearmExtension,
+            ForearmHinge = hardware.ForearmHinge,
             WristRotation = hardware.WristRotation,
             WristHinge = hardware.WristHinge,
             ToolExtension = hardware.ToolExtension
@@ -111,6 +116,7 @@ public class DrillArmMechanismTests
             0.0,
             0.0,
             0.0,
+            0.0,
             0.0));
         mechanism.Update(0.1);
 
@@ -119,10 +125,11 @@ public class DrillArmMechanismTests
     }
 
     [Fact]
-    public void GetRuntimeState_ReturnsAllEightLogicalAxes()
+    public void GetRuntimeState_ReturnsAllNineLogicalAxes()
     {
         DrillArmMechanism mechanism = CreateMechanism(CreateSimpleHardware());
         mechanism.SetTargets(new DrillArmTargets(
+            10.0,
             10.0,
             10.0,
             10.0,
@@ -135,9 +142,9 @@ public class DrillArmMechanismTests
 
         MechanismRuntimeState state = mechanism.GetRuntimeState();
 
-        Assert.Equal(8, state.Axes.Count);
+        Assert.Equal(9, state.Axes.Count);
         Assert.Equal("DrillArm.Base", state.Axes[0].Name);
-        Assert.Equal("DrillArm.Tool", state.Axes[7].Name);
+        Assert.Equal("DrillArm.Tool", state.Axes[8].Name);
         Assert.True(state.IsMoving);
     }
 
@@ -152,6 +159,7 @@ public class DrillArmMechanismTests
                 UpperArmExtension = CreateLinearAxis("DrillArm.UpperArm"),
                 Elbow = CreateRotationalAxis("DrillArm.Elbow"),
                 ForearmExtension = CreateLinearAxis("DrillArm.Forearm"),
+                ForearmHinge = CreateRotationalAxis("DrillArm.ForearmHinge"),
                 WristRotation = CreateRotationalAxis("DrillArm.WristRotation"),
                 WristHinge = CreateRotationalAxis("DrillArm.WristHinge"),
                 ToolExtension = CreateLinearAxis("DrillArm.Tool")
@@ -169,6 +177,7 @@ public class DrillArmMechanismTests
             UpperArmExtension = new FakeAxisHardware(),
             Elbow = new FakeAxisHardware(),
             ForearmExtension = new FakeAxisHardware(),
+            ForearmHinge = new FakeAxisHardware(),
             WristRotation = new FakeAxisHardware(),
             WristHinge = new FakeAxisHardware(),
             ToolExtension = new FakeAxisHardware()
