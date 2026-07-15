@@ -8,6 +8,7 @@ RotationalAxis axis = new RotationalAxis
     Name = "Solar.Azimuth",
     MovementSpeed = 5.0,
     MaximumAcceleration = 1.0,
+    MotionProfileType = MotionProfileType.Trapezoidal,
     Tolerance = 0.5,
     WrapAround = true
 };
@@ -21,11 +22,11 @@ FakeAxisHardware hardware = new FakeAxisHardware
 
 hardware.SetPosition(0.0);
 
-TrapezoidalMotionProfile profile = new TrapezoidalMotionProfile();
+IMotionProfileFactory profileFactory = new MotionProfileFactory();
 
 MotionRequestFactory requestFactory = new MotionRequestFactory();
 
-MotionController controller = new MotionController(axis, hardware, profile, requestFactory);
+MotionController controller = new MotionController(axis, hardware, profileFactory, requestFactory);
 
 double deltaTime = 0.1;
 double simulationTime = 30.0;

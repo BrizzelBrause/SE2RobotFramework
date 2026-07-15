@@ -14,6 +14,7 @@ public class MotionControllerTests
         {
             MovementSpeed = 5.0,
             MaximumAcceleration = 1.0,
+            MotionProfileType = MotionProfileType.Trapezoidal,
             Tolerance = 0.5,
             WrapAround = true
         };
@@ -26,11 +27,11 @@ public class MotionControllerTests
         hardware.SetPosition(0.0);
         axis.SetTargetPosition(90.0);
 
-        TrapezoidalMotionProfile profile = new TrapezoidalMotionProfile();
+        IMotionProfileFactory profileFactory = new MotionProfileFactory();
 
         MotionRequestFactory requestFactory = new MotionRequestFactory();
 
-        MotionController controller = new MotionController(axis, hardware, profile, requestFactory);
+        MotionController controller = new MotionController(axis, hardware, profileFactory, requestFactory);
 
         double deltaTime = 0.1;
         double simulationTime = 30.0;
@@ -57,6 +58,7 @@ public class MotionControllerTests
         {
             MovementSpeed = 5.0,
             MaximumAcceleration = 1.0,
+            MotionProfileType = MotionProfileType.Trapezoidal,
             Tolerance = 0.5,
             WrapAround = true
         };
@@ -69,11 +71,11 @@ public class MotionControllerTests
         hardware.SetPosition(350.0);
         axis.SetTargetPosition(10.0);
 
-        TrapezoidalMotionProfile profile = new TrapezoidalMotionProfile();
+        IMotionProfileFactory profileFactory = new MotionProfileFactory();
 
         MotionRequestFactory requestFactory = new MotionRequestFactory();
 
-        MotionController controller = new MotionController(axis, hardware, profile, requestFactory);
+        MotionController controller = new MotionController(axis, hardware, profileFactory, requestFactory);
 
         double deltaTime = 0.1;
         int steps = 100;
@@ -98,6 +100,7 @@ public class MotionControllerTests
         {
             MovementSpeed = 5.0,
             MaximumAcceleration = 1.0,
+            MotionProfileType = MotionProfileType.Trapezoidal,
             Tolerance = 0.5,
             WrapAround = true
         };
@@ -117,18 +120,11 @@ public class MotionControllerTests
 
         axis.SetTargetPosition(350.0);
 
-        TrapezoidalMotionProfile profile =
-            new TrapezoidalMotionProfile();
+        IMotionProfileFactory profileFactory = new MotionProfileFactory();
 
-        MotionRequestFactory requestFactory =
-            new MotionRequestFactory();
+        MotionRequestFactory requestFactory = new MotionRequestFactory();
 
-        MotionController controller =
-            new MotionController(
-                axis,
-                hardware,
-                profile,
-                requestFactory);
+        MotionController controller = new MotionController(axis, hardware, profileFactory, requestFactory);
 
         controller.Update(0.1);
 
