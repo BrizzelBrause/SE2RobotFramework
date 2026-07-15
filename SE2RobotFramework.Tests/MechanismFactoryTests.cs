@@ -1,3 +1,4 @@
+using System.Numerics;
 using SE2RobotFramework.Configuration;
 using SE2RobotFramework.Hardware;
 using SE2RobotFramework.Mechanisms.DrillArm;
@@ -30,6 +31,43 @@ public class MechanismFactoryTests
         Assert.Equal("Solar.Elevation", mechanism.ElevationAxis.Name);
         Assert.Equal(3.0, firstElevationRotor.CommandedVelocity);
         Assert.Equal(-3.0, secondElevationRotor.CommandedVelocity);
+    }
+
+    [Fact]
+    public void SolarRuntimeFactory_WiresMirroredTrackingPipeline()
+    {
+        FakeAxisHardware firstElevation = new();
+        FakeAxisHardware secondElevation = new();
+        SolarArrayRuntime runtime = new SolarArrayRuntimeFactory().Create(
+            new SolarArrayConfiguration
+            {
+                Type = SolarArrayType.BaseRotorWithDualRotors,
+                AzimuthAxis = CreateAxis(
+                    "Solar.Azimuth",
+                    AxisType.Rotational,
+                    5.0),
+                ElevationAxis = CreateAxis(
+                    "Solar.Elevation",
+                    AxisType.Rotational,
+                    3.0)
+            },
+            new FakeAxisHardware(),
+            new[] { firstElevation, secondElevation },
+            new FixedSunDirectionProvider(
+                Vector3.Normalize(new Vector3(1.0f, 1.0f, 1.0f))));
+
+        runtime.Update(0.1);
+
+        Assert.Equal(SolarTrackingServiceStatus.Tracking, runtime.Status);
+        Assert.NotNull(runtime.LastOrientation);
+        Assert.Equal(
+            firstElevation.CommandedVelocity,
+            -secondElevation.CommandedVelocity);
+        Assert.False(runtime.RuntimeState.HasFault);
+
+        runtime.Stop();
+
+        Assert.Equal(SolarTrackingServiceStatus.Stopped, runtime.Status);
     }
 
     [Fact]
@@ -230,5 +268,21 @@ public class MechanismFactoryTests
                 .Select(_ => new FakeAxisHardware())
                 .ToArray())
             .ToArray();
+    }
+
+    private sealed class FixedSunDirectionProvider : ISunDirectionProvider
+    {
+        private readonly Vector3 _direction;
+
+        public FixedSunDirectionProvider(Vector3 direction)
+        {
+            _direction = direction;
+        }
+
+        public bool TryGetSunDirection(out Vector3 sunDirection)
+        {
+            sunDirection = _direction;
+            return true;
+        }
     }
 }
