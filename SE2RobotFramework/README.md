@@ -29,6 +29,7 @@ A .NET framework for motion control and robot axis simulation.
 - Configurable keyboard control for piston banks and manual forearm-hinge adjustment
 - Combined per-frame manual input for simultaneous mouse and keyboard control
 - Configuration-driven drill-arm runtime facade for game-adapter integration
+- Live drill-arm runtime reconfiguration without rebuilding hardware bindings
 - Configuration-driven solar runtime with automatic sun-vector tracking
 - Fake hardware implementations for testing
 - Automated unit tests
