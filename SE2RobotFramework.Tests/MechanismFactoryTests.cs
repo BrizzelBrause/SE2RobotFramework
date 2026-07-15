@@ -136,6 +136,42 @@ public class MechanismFactoryTests
             new DrillArmMechanismFactory().Create(configuration, hardware));
     }
 
+    [Fact]
+    public void DrillArmRuntimeFactory_WiresConfiguredManualControlPipeline()
+    {
+        DrillArmRuntime runtime = new DrillArmRuntimeFactory().Create(
+            CreateDrillArmConfiguration(),
+            new DrillArmHardware
+            {
+                BaseRotation = new FakeAxisHardware(),
+                Shoulder = new FakeAxisHardware(),
+                UpperArmExtension = new PistonBankAxisHardware(
+                    CreatePistons(5, 4)),
+                Elbow = new FakeAxisHardware(),
+                ForearmExtension = new PistonBankAxisHardware(
+                    CreatePistons(5, 3)),
+                ForearmHinge = new FakeAxisHardware(),
+                WristRotation = new FakeAxisHardware(),
+                WristHinge = new FakeAxisHardware(),
+                ToolExtension = new PistonBankAxisHardware(
+                    CreatePistons(1, 1))
+            });
+
+        DrillArmManualInputResult result = runtime.ProcessManualInput(
+            new DrillArmManualInput(
+                default,
+                new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0)),
+            0.1);
+
+        Assert.Equal(0.1, result.Targets.UpperArmExtension);
+        Assert.NotNull(runtime.ControlService.ActiveTargets);
+        Assert.NotNull(runtime.LastRuntimeState);
+
+        runtime.Stop();
+
+        Assert.Equal(DrillArmControlStatus.Stopped, runtime.Status);
+    }
+
     private static DrillArmConfiguration CreateDrillArmConfiguration()
     {
         return new DrillArmConfiguration
