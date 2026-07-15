@@ -283,7 +283,8 @@ public class MechanismFactoryTests
         DrillArmManualInputResult result = runtime.ProcessManualInput(
             new DrillArmManualInput(
                 new DrillArmMouseInput(0.0, 1.0),
-                new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0)),
+                new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0),
+                DrillHeadEnabled: true),
             0.1);
         DrillArmRuntimeSnapshot snapshot = runtime.GetSnapshot();
 
@@ -300,11 +301,19 @@ public class MechanismFactoryTests
         Assert.Equal(
             runtime.ControlService.ForearmOrientationErrorDegrees,
             snapshot.ForearmOrientationErrorDegrees);
-        Assert.True(runtime.SetDrillHeadEnabled(true));
         Assert.True(drillHead.IsEnabled);
         Assert.Equal(
             SwitchableControllerStatus.Enabled,
             runtime.GetSnapshot().DrillHeadStatus);
+
+        runtime.ProcessManualInput(default, 0.1);
+
+        Assert.False(drillHead.IsEnabled);
+        Assert.Equal(
+            SwitchableControllerStatus.Disabled,
+            runtime.GetSnapshot().DrillHeadStatus);
+
+        runtime.SetDrillHeadEnabled(true);
 
         runtime.Stop();
 

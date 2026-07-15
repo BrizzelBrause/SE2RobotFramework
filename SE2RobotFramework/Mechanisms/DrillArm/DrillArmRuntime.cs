@@ -41,7 +41,10 @@ public class DrillArmRuntime
         DrillArmManualInput input,
         double deltaTime)
     {
-        return ManualInputController.Process(input, deltaTime);
+        DrillArmManualInputResult result =
+            ManualInputController.Process(input, deltaTime);
+        SetDrillHeadEnabled(input.DrillHeadEnabled);
+        return result;
     }
 
     public void Stop()
