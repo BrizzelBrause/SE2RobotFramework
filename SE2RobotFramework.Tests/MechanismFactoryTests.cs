@@ -261,11 +261,12 @@ public class MechanismFactoryTests
     public void DrillArmRuntimeFactory_WiresConfiguredManualControlPipeline()
     {
         FakeSwitchableHardware drillHead = new();
+        FakeAxisHardware baseRotation = new();
         DrillArmRuntime runtime = new DrillArmRuntimeFactory().Create(
             CreateDrillArmConfiguration(),
             new DrillArmHardware
             {
-                BaseRotation = new FakeAxisHardware(),
+                BaseRotation = baseRotation,
                 Shoulder = new FakeAxisHardware(),
                 UpperArmExtension = new PistonBankAxisHardware(
                     CreatePistons(5, 4)),
@@ -332,6 +333,42 @@ public class MechanismFactoryTests
             rejectedDrillCommand.DrillHeadStatus);
 
         drillHead.IsAvailable = true;
+        runtime.SetDrillHeadEnabled(true);
+
+        baseRotation.IsAvailable = false;
+        DrillArmManualInputResult faultedInput = runtime.ProcessManualInput(
+            new DrillArmManualInput(
+                default,
+                new DrillArmKeyboardInput(1.0, 0.0, 0.0, 0.0),
+                DrillHeadEnabled: true),
+            0.1);
+
+        Assert.Equal(DrillArmControlStatus.Faulted, faultedInput.Status);
+        Assert.False(faultedInput.IsDrillHeadCommandAccepted);
+        Assert.Equal(
+            SwitchableControllerStatus.Stopped,
+            faultedInput.DrillHeadStatus);
+        Assert.False(drillHead.IsEnabled);
+
+        baseRotation.IsAvailable = true;
+        runtime.SetDrillHeadEnabled(true);
+
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            runtime.ProcessManualInput(
+                new DrillArmManualInput(
+                    default,
+                    new DrillArmKeyboardInput(
+                        2.0,
+                        0.0,
+                        0.0,
+                        0.0),
+                    DrillHeadEnabled: true),
+                0.1));
+        Assert.False(drillHead.IsEnabled);
+        Assert.Equal(
+            SwitchableControllerStatus.Stopped,
+            runtime.GetSnapshot().DrillHeadStatus);
+
         runtime.SetDrillHeadEnabled(true);
 
         runtime.Stop();
