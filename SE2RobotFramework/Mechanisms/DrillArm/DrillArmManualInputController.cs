@@ -65,7 +65,9 @@ public class DrillArmManualInputController
             input.UpperArmExtension != 0.0 ||
             input.ForearmExtension != 0.0 ||
             input.ForearmHinge != 0.0 ||
-            input.ToolExtension != 0.0;
+            input.ToolExtension != 0.0 ||
+            input.WristRotation != 0.0 ||
+            input.WristHinge != 0.0;
     }
 
     private DrillArmTargets GetTargets()

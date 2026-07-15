@@ -67,6 +67,27 @@ public class DrillArmKeyboardControllerTests
     }
 
     [Fact]
+    public void Apply_ControlsWristRotationAndLimitedWristHinge()
+    {
+        (DrillArmKeyboardController controller, DrillArmMechanism mechanism, _) =
+            CreateController();
+        mechanism.Axes.WristHinge.SetTargetPosition(100.0);
+
+        DrillArmTargets targets = controller.Apply(
+            new DrillArmKeyboardInput(
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                WristRotation: 1.0,
+                WristHinge: -1.0),
+            2.0);
+
+        Assert.Equal(60.0, targets.WristRotation);
+        Assert.Equal(40.0, targets.WristHinge);
+    }
+
+    [Fact]
     public void Input_RejectsValuesOutsideNormalizedRange()
     {
         DrillArmKeyboardInput input = new(1.01, 0.0, 0.0, 0.0);

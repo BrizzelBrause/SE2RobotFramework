@@ -4,7 +4,9 @@ public readonly record struct DrillArmKeyboardInput(
     double UpperArmExtension,
     double ForearmExtension,
     double ForearmHinge,
-    double ToolExtension)
+    double ToolExtension,
+    double WristRotation = 0.0,
+    double WristHinge = 0.0)
 {
     public void Validate()
     {
@@ -12,6 +14,8 @@ public readonly record struct DrillArmKeyboardInput(
         ValidateDirection(ForearmExtension, nameof(ForearmExtension));
         ValidateDirection(ForearmHinge, nameof(ForearmHinge));
         ValidateDirection(ToolExtension, nameof(ToolExtension));
+        ValidateDirection(WristRotation, nameof(WristRotation));
+        ValidateDirection(WristHinge, nameof(WristHinge));
     }
 
     private static void ValidateDirection(double value, string parameterName)

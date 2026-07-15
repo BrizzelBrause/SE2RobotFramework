@@ -34,6 +34,7 @@ A .NET framework for motion control and robot axis simulation.
 - Stable forearm world-orientation reference across continuous mouse-input frames
 - Latched forearm compensation limits until explicit manual adjustment
 - Configurable keyboard control for piston banks and manual forearm-hinge adjustment
+- Configurable keyboard control for wrist rotation and wrist-hinge adjustment
 - Combined per-frame manual input for simultaneous mouse and keyboard control
 - Configuration-driven drill-arm runtime facade for game-adapter integration
 - Live drill-arm runtime reconfiguration without rebuilding hardware bindings
