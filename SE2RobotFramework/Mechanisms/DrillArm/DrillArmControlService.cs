@@ -7,6 +7,7 @@ public class DrillArmControlService
     private readonly DrillArmMechanism _mechanism;
     private bool _hasActiveCommand;
     private double? _forearmOrientationReference;
+    private double? _forearmCompensationLimit;
 
     public DrillArmControlService(DrillArmMechanism mechanism)
     {
@@ -27,6 +28,9 @@ public class DrillArmControlService
         _forearmOrientationReference.HasValue
             ? GetCurrentForearmOrientation() - _forearmOrientationReference.Value
             : 0.0;
+
+    public bool IsForearmCompensationLimitLatched =>
+        _forearmCompensationLimit.HasValue;
 
     public void MoveTo(DrillArmTargets targets)
     {
@@ -80,11 +84,13 @@ public class DrillArmControlService
     public void EnableForearmOrientationHold()
     {
         _forearmOrientationReference = GetCurrentForearmOrientation();
+        _forearmCompensationLimit = null;
     }
 
     public void DisableForearmOrientationHold()
     {
         _forearmOrientationReference = null;
+        _forearmCompensationLimit = null;
     }
 
     private void StopInternal(DrillArmControlStatus status)
@@ -92,6 +98,7 @@ public class DrillArmControlService
         _mechanism.Stop();
         _hasActiveCommand = false;
         _forearmOrientationReference = null;
+        _forearmCompensationLimit = null;
         Status = status;
     }
 
@@ -102,12 +109,31 @@ public class DrillArmControlService
             return;
         }
 
+        if (_forearmCompensationLimit.HasValue)
+        {
+            _mechanism.Axes.ForearmHinge.SetTargetPosition(
+                _forearmCompensationLimit.Value);
+            return;
+        }
+
         double target =
             _forearmOrientationReference.Value -
             _mechanism.Axes.Shoulder.CurrentPosition -
             _mechanism.Axes.Elbow.CurrentPosition;
 
-        _mechanism.Axes.ForearmHinge.SetTargetPosition(target);
+        if (target < _mechanism.Axes.ForearmHinge.MinimumPosition)
+        {
+            _forearmCompensationLimit =
+                _mechanism.Axes.ForearmHinge.MinimumPosition;
+        }
+        else if (target > _mechanism.Axes.ForearmHinge.MaximumPosition)
+        {
+            _forearmCompensationLimit =
+                _mechanism.Axes.ForearmHinge.MaximumPosition;
+        }
+
+        _mechanism.Axes.ForearmHinge.SetTargetPosition(
+            _forearmCompensationLimit ?? target);
     }
 
     private double GetCurrentForearmOrientation()

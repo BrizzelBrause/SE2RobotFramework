@@ -292,6 +292,9 @@ public class MechanismFactoryTests
         Assert.NotNull(snapshot.ActiveTargets);
         Assert.True(snapshot.IsForearmOrientationHoldEnabled);
         Assert.Equal(
+            runtime.ControlService.IsForearmCompensationLimitLatched,
+            snapshot.IsForearmCompensationLimitLatched);
+        Assert.Equal(
             runtime.ControlService.ForearmOrientationErrorDegrees,
             snapshot.ForearmOrientationErrorDegrees);
 

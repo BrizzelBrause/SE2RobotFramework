@@ -7,4 +7,5 @@ public readonly record struct DrillArmRuntimeSnapshot(
     MechanismRuntimeState MechanismState,
     DrillArmTargets? ActiveTargets,
     bool IsForearmOrientationHoldEnabled,
+    bool IsForearmCompensationLimitLatched,
     double ForearmOrientationErrorDegrees);

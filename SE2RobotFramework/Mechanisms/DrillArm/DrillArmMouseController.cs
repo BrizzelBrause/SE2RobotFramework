@@ -82,6 +82,9 @@ public class DrillArmMouseController
     public double ForearmOrientationErrorDegrees =>
         _controlService.ForearmOrientationErrorDegrees;
 
+    public bool IsForearmCompensationLimitLatched =>
+        _controlService.IsForearmCompensationLimitLatched;
+
     private static double ApplyDelta(Axis axis, double delta)
     {
         return Math.Clamp(
