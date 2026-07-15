@@ -20,23 +20,23 @@ public class TrapezoidalMotionProfile : IMotionProfile
             };
         }
 
-        if (request.MaximumAcceleration <= 0.0)
+        if (request.Limits.MaximumAcceleration <= 0.0)
         {
             return new MotionState
             {
-                DesiredVelocity = request.MaximumSpeed,
+                DesiredVelocity = request.Limits.MaximumSpeed,
                 RemainingDistance = request.RemainingDistance,
                 IsMovingTowardTarget = isMovingTowardTarget
             };
         }
 
-        double brakingLimitedSpeed = Math.Sqrt(2.0 * request.MaximumAcceleration * request.RemainingDistance);
+        double brakingLimitedSpeed = Math.Sqrt(2.0 * request.Limits.MaximumAcceleration * request.RemainingDistance);
 
-        double stoppingDistance = request.MaximumSpeed * request.MaximumSpeed / (2.0 * request.MaximumAcceleration);
+        double stoppingDistance = request.Limits.MaximumSpeed * request.Limits.MaximumSpeed / (2.0 * request.Limits.MaximumAcceleration);
 
         return new MotionState
         {
-            DesiredVelocity = Math.Min(request.MaximumSpeed, brakingLimitedSpeed),
+            DesiredVelocity = Math.Min(request.Limits.MaximumSpeed, brakingLimitedSpeed),
 
             DesiredAcceleration = 0.0,
             DesiredJerk = 0.0,

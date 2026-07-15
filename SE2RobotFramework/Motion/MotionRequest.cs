@@ -6,12 +6,6 @@ public class MotionRequest
 
     public MotionLimits Limits { get; init; } = new();
 
-    public double MaximumSpeed { get; init; }
-
-    public double MaximumAcceleration { get; init; }
-
-    public double MaximumJerk { get; init; }
-
     public double DeltaTime { get; init; }
 
     public double CurrentVelocity { get; init; }

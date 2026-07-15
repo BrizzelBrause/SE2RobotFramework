@@ -12,7 +12,7 @@ public class SCurveMotionProfile : IMotionProfile
 
     private StoppingProfileType DetermineStoppingProfile(MotionRequest request)
     {
-        return _stoppingDistanceCalculator.DetermineProfileType(request.CurrentVelocity, request.CurrentAcceleration, request.MaximumAcceleration, request.MaximumJerk);
+        return _stoppingDistanceCalculator.DetermineProfileType(request.CurrentVelocity, request.CurrentAcceleration, request.Limits.MaximumAcceleration, request.Limits.MaximumJerk);
     }
 
     private static bool MustReleaseBrakingAcceleration(MotionRequest request, double accelerationInTravelDirection, double velocityLostDuringAccelerationRelease, StoppingProfileType profileType)
@@ -39,12 +39,12 @@ public class SCurveMotionProfile : IMotionProfile
             return CalculateJerkToZero(request);
         }
 
-        return CalculateJerkInDirection(request.MaximumJerk, -travelDirection);
+        return CalculateJerkInDirection(request.Limits.MaximumJerk, -travelDirection);
     }
 
     private static double CalculateSevenPhaseBrakingJerk(MotionRequest request, double travelDirection, double accelerationInTravelDirection, double velocityLostDuringAccelerationRelease)
     {
-        if (MustHoldMaximumBrakingAcceleration(accelerationInTravelDirection, request.MaximumAcceleration))
+        if (MustHoldMaximumBrakingAcceleration(accelerationInTravelDirection, request.Limits.MaximumAcceleration))
         {
             return 0.0;
         }
@@ -81,14 +81,14 @@ public class SCurveMotionProfile : IMotionProfile
             throw new ArgumentOutOfRangeException(nameof(request.DeltaTime));
         }
 
-        if (request.MaximumJerk <= 0.0)
+        if (request.Limits.MaximumJerk <= 0.0)
         {
-            throw new ArgumentOutOfRangeException(nameof(request.MaximumJerk));
+            throw new ArgumentOutOfRangeException(nameof(request.Limits.MaximumJerk));
         }
 
-        if (request.MaximumAcceleration <= 0.0)
+        if (request.Limits.MaximumAcceleration <= 0.0)
         {
-            throw new ArgumentOutOfRangeException(nameof(request.MaximumAcceleration));
+            throw new ArgumentOutOfRangeException(nameof(request.Limits.MaximumAcceleration));
         }
     }
 
@@ -133,13 +133,13 @@ public class SCurveMotionProfile : IMotionProfile
     {
         double jerkToZero = -request.CurrentAcceleration / request.DeltaTime;
 
-        return Math.Clamp(jerkToZero, -request.MaximumJerk,  request.MaximumJerk);
+        return Math.Clamp(jerkToZero, -request.Limits.MaximumJerk,  request.Limits.MaximumJerk);
     }
 
     private static double CalculateVelocityChangeDuringAccelerationRelease(MotionRequest request)
     {
         return
-            request.CurrentAcceleration * request.CurrentAcceleration / (2.0 * request.MaximumJerk);
+            request.CurrentAcceleration * request.CurrentAcceleration / (2.0 * request.Limits.MaximumJerk);
     }
 
     private static double CalculateAccelerationInDirection(MotionRequest request, double direction)
@@ -194,7 +194,7 @@ public class SCurveMotionProfile : IMotionProfile
             return true;
         }
 
-        double stoppingDistance = _stoppingDistanceCalculator.CalculateStoppingDistance(request.CurrentVelocity, request.CurrentAcceleration, request.MaximumAcceleration, request.MaximumJerk);
+        double stoppingDistance = _stoppingDistanceCalculator.CalculateStoppingDistance(request.CurrentVelocity, request.CurrentAcceleration, request.Limits.MaximumAcceleration, request.Limits.MaximumJerk);
 
         return stoppingDistance >= request.RemainingDistance;
     }
@@ -202,7 +202,7 @@ public class SCurveMotionProfile : IMotionProfile
     private static bool HasReachedMaximumSpeed(MotionRequest request)
     {
         return
-            Math.Abs(request.CurrentVelocity) >= request.MaximumSpeed;
+            Math.Abs(request.CurrentVelocity) >= request.Limits.MaximumSpeed;
     }
 
     private static bool MustReleaseAcceleration(double accelerationInTargetDirection, double remainingVelocity, double velocityGainDuringAccelerationRelease)
@@ -217,7 +217,7 @@ public class SCurveMotionProfile : IMotionProfile
 
     private static double CalculateJerkDuringAcceleration(MotionRequest request)
     {
-        return CalculateJerkDuringAcceleration(request, CalculateAccelerationInDirection(request, request.Direction), request.MaximumSpeed - Math.Abs(request.CurrentVelocity), CalculateVelocityChangeDuringAccelerationRelease(request));
+        return CalculateJerkDuringAcceleration(request, CalculateAccelerationInDirection(request, request.Direction), request.Limits.MaximumSpeed - Math.Abs(request.CurrentVelocity), CalculateVelocityChangeDuringAccelerationRelease(request));
     }
 
     private static double CalculateJerkDuringAcceleration(MotionRequest request, double accelerationInTargetDirection, double remainingVelocity, double velocityGainDuringAccelerationRelease)
@@ -227,12 +227,12 @@ public class SCurveMotionProfile : IMotionProfile
             return CalculateJerkToZero(request);
         }
 
-        if (MustHoldMaximumAcceleration(accelerationInTargetDirection, request.MaximumAcceleration))
+        if (MustHoldMaximumAcceleration(accelerationInTargetDirection, request.Limits.MaximumAcceleration))
         {
             return 0.0;
         }
 
-        return CalculateJerkInDirection(request.MaximumJerk, request.Direction);
+        return CalculateJerkInDirection(request.Limits.MaximumJerk, request.Direction);
     }
 
     private MotionPhase DeterminePhase(MotionRequest request)

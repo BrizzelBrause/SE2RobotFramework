@@ -11,9 +11,12 @@ public class MotionIntegratorTests
         {
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 10.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 10.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1
         };
 
@@ -33,9 +36,12 @@ public class MotionIntegratorTests
         {
             CurrentVelocity = 0.0,
             CurrentAcceleration = 0.0,
-            MaximumSpeed = 10.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 10.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1
         };
 
@@ -55,9 +61,12 @@ public class MotionIntegratorTests
         {
             CurrentVelocity = 0.0,
             CurrentAcceleration = 4.9,
-            MaximumSpeed = 10.0,
-            MaximumAcceleration = 5.0,
-            MaximumJerk = 2.0,
+            Limits = new MotionLimits
+            {
+                MaximumSpeed = 10.0,
+                MaximumAcceleration = 5.0,
+                MaximumJerk = 2.0
+            },
             DeltaTime = 0.1
         };
 
