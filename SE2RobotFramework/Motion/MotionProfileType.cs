@@ -2,6 +2,7 @@
 
 public enum MotionProfileType
 {
+    Linear,
     Trapezoidal,
     SCurve
 }
