@@ -111,17 +111,22 @@ public class MechanismFactoryTests
             TrackingFrame = updatedFrame
         };
 
-        new SolarArrayRuntimeConfigurationApplier().Apply(updated, runtime);
+        FrameworkConfigurationSerializer serializer = new();
+        string json = serializer.SerializeSolarArray(updated);
+
+        SolarArrayConfiguration applied =
+            new RuntimeConfigurationService().ApplySolarArray(json, runtime);
         runtime.Update(0.1);
 
         Assert.Equal(
             MotionProfileType.SCurve,
             runtime.Mechanism.AzimuthAxis.MotionProfileType);
-        Assert.Same(updatedFrame, runtime.TrackingController.Frame);
+        Assert.Same(applied.TrackingFrame, runtime.TrackingController.Frame);
         Assert.Same(provider, runtime.SunDirectionProvider);
         Assert.Equal(SolarTrackingServiceStatus.Tracking, runtime.Status);
         Assert.Equal(110.0, runtime.LastOrientation?.AzimuthDegrees);
         Assert.Equal(10.0, runtime.LastOrientation?.ElevationDegrees);
+        Assert.Equal(20.0, applied.TrackingFrame.AzimuthOffsetDegrees);
     }
 
     [Fact]
@@ -286,7 +291,11 @@ public class MechanismFactoryTests
             MotionProfileType.SCurve,
             upperArmKeyboardRate: 2.0);
 
-        new DrillArmRuntimeConfigurationApplier().Apply(updated, runtime);
+        FrameworkConfigurationSerializer serializer = new();
+        string json = serializer.SerializeDrillArm(updated);
+
+        DrillArmConfiguration applied =
+            new RuntimeConfigurationService().ApplyDrillArm(json, runtime);
         DrillArmManualInputResult result = runtime.ProcessManualInput(
             new DrillArmManualInput(
                 default,
@@ -297,6 +306,9 @@ public class MechanismFactoryTests
             MotionProfileType.SCurve,
             runtime.Mechanism.Axes.UpperArmExtension.MotionProfileType);
         Assert.Equal(0.2, result.Targets.UpperArmExtension);
+        Assert.Equal(
+            MotionProfileType.SCurve,
+            applied.UpperArmExtension.MotionProfileType);
     }
 
     private static DrillArmConfiguration CreateDrillArmConfiguration(
