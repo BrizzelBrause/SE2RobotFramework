@@ -71,6 +71,60 @@ public class MechanismFactoryTests
     }
 
     [Fact]
+    public void SolarRuntimeConfigurationApplier_UpdatesProfileAndTrackingFrame()
+    {
+        FixedSunDirectionProvider provider = new(Vector3.UnitY);
+        SolarArrayRuntime runtime = new SolarArrayRuntimeFactory().Create(
+            new SolarArrayConfiguration
+            {
+                Type = SolarArrayType.BaseRotorWithRotor,
+                AzimuthAxis = CreateAxis(
+                    "Solar.Azimuth",
+                    AxisType.Rotational,
+                    5.0),
+                ElevationAxis = CreateAxis(
+                    "Solar.Elevation",
+                    AxisType.Rotational,
+                    3.0)
+            },
+            new FakeAxisHardware(),
+            new[] { new FakeAxisHardware() },
+            provider);
+        SolarTrackingFrame updatedFrame = new()
+        {
+            AzimuthOffsetDegrees = 20.0,
+            ElevationOffsetDegrees = 10.0
+        };
+        SolarArrayConfiguration updated = new()
+        {
+            Type = SolarArrayType.BaseRotorWithRotor,
+            AzimuthAxis = CreateAxis(
+                "Solar.Azimuth",
+                AxisType.Rotational,
+                4.0,
+                MotionProfileType.SCurve),
+            ElevationAxis = CreateAxis(
+                "Solar.Elevation",
+                AxisType.Rotational,
+                2.0,
+                MotionProfileType.SCurve),
+            TrackingFrame = updatedFrame
+        };
+
+        new SolarArrayRuntimeConfigurationApplier().Apply(updated, runtime);
+        runtime.Update(0.1);
+
+        Assert.Equal(
+            MotionProfileType.SCurve,
+            runtime.Mechanism.AzimuthAxis.MotionProfileType);
+        Assert.Same(updatedFrame, runtime.TrackingController.Frame);
+        Assert.Same(provider, runtime.SunDirectionProvider);
+        Assert.Equal(SolarTrackingServiceStatus.Tracking, runtime.Status);
+        Assert.Equal(110.0, runtime.LastOrientation?.AzimuthDegrees);
+        Assert.Equal(10.0, runtime.LastOrientation?.ElevationDegrees);
+    }
+
+    [Fact]
     public void SolarFactory_WithDesynchronizedDualRotors_BlocksMovement()
     {
         FakeAxisHardware firstElevationRotor = new();
