@@ -17,6 +17,7 @@ A .NET framework for motion control and robot axis simulation.
 - Eight-axis drill-arm mechanism with configurable piston banks and coupled joints
 - Serializable and validated runtime configuration for axes, solar arrays, and drill arms
 - Live application of profile, limit, tolerance, and range changes without rebuilding controllers
+- Configuration-driven factories for complete solar-array and drill-arm mechanisms
 - Fake hardware implementations for testing
 - Automated unit tests
 
