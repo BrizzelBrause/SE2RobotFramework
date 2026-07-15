@@ -87,6 +87,26 @@ public class DrillArmMouseControllerTests
     }
 
     [Fact]
+    public void Apply_RepeatedMouseFrames_PreserveOriginalOrientationReference()
+    {
+        (DrillArmMouseController controller, DrillArmMechanism mechanism) =
+            CreateController();
+        SetPose(mechanism, shoulder: 100.0, elbow: 20.0, forearmHinge: 100.0);
+        controller.Apply(new DrillArmMouseInput(0.0, 10.0));
+        SetPhysicalJointPositions(
+            mechanism,
+            shoulder: 105.0,
+            elbow: 25.0,
+            forearmHinge: 95.0);
+
+        controller.Apply(new DrillArmMouseInput(0.0, 1.0));
+        controller.Update(0.1);
+
+        Assert.Equal(90.0, mechanism.Axes.ForearmHinge.TargetPosition);
+        Assert.Equal(5.0, controller.ForearmOrientationErrorDegrees);
+    }
+
+    [Fact]
     public void Update_WhenCompensationExceedsLimit_LeavesHingeAtLimitWithoutBlockingArm()
     {
         (DrillArmMouseController controller, DrillArmMechanism mechanism) =
