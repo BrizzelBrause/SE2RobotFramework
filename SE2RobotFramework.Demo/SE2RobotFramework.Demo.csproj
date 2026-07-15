@@ -1,14 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Math\" />
-    <Folder Include="Utilities\" />
+    <ProjectReference Include="..\SE2RobotFramework\SE2RobotFramework.csproj" />
   </ItemGroup>
 
 </Project>
