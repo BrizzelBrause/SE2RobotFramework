@@ -27,6 +27,7 @@ A .NET framework for motion control and robot axis simulation.
 - Safe joint-level drill-arm control service with target validation and fault handling
 - Configurable mouse control for base, shoulder, and elbow with compensating forearm hinge
 - Configurable keyboard control for piston banks and manual forearm-hinge adjustment
+- Combined per-frame manual input for simultaneous mouse and keyboard control
 - Fake hardware implementations for testing
 - Automated unit tests
 
