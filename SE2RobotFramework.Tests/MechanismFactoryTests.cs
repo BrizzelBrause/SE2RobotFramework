@@ -217,6 +217,18 @@ public class MechanismFactoryTests
         Assert.Equal("DrillArm.Base", mechanism.Axes.BaseRotation.Name);
         Assert.Equal("DrillArm.UpperArm", mechanism.Axes.UpperArmExtension.Name);
         Assert.Equal(MotionProfileType.Linear, mechanism.Axes.Elbow.MotionProfileType);
+        Assert.Equal(100.0, mechanism.Axes.BaseRotation.MaximumPosition);
+        Assert.Equal(90.0, mechanism.Axes.Shoulder.MinimumPosition);
+        Assert.Equal(180.0, mechanism.Axes.Shoulder.MaximumPosition);
+        Assert.Equal(14.0, mechanism.Axes.UpperArmExtension.MaximumPosition);
+        Assert.Equal(90.0, mechanism.Axes.Elbow.MaximumPosition);
+        Assert.Equal(10.5, mechanism.Axes.ForearmExtension.MaximumPosition);
+        Assert.Equal(180.0, mechanism.Axes.ForearmHinge.MaximumPosition);
+        Assert.Equal(
+            double.PositiveInfinity,
+            mechanism.Axes.WristRotation.MaximumPosition);
+        Assert.Equal(180.0, mechanism.Axes.WristHinge.MaximumPosition);
+        Assert.Equal(3.5, mechanism.Axes.ToolExtension.MaximumPosition);
     }
 
     [Fact]

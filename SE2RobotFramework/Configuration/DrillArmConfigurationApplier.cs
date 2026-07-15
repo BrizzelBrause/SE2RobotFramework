@@ -47,6 +47,12 @@ public class DrillArmConfigurationApplier
         _axisApplier.Apply(configuration.WristRotation, mechanism.Axes.WristRotation);
         _axisApplier.Apply(configuration.WristHinge, mechanism.Axes.WristHinge);
         _axisApplier.Apply(configuration.ToolExtension, mechanism.Axes.ToolExtension);
+
+        DrillArmPositionLimits.Apply(
+            mechanism.Axes,
+            configuration.UpperArmPistons.SeriesCount,
+            configuration.ForearmPistons.SeriesCount,
+            configuration.ToolPistons.SeriesCount);
     }
 
     private static void ValidatePistonLayout(
