@@ -1,6 +1,6 @@
 namespace SE2RobotFramework.Hardware;
 
-public class ParallelAxisHardware : IAxisHardware
+public class ParallelAxisHardware : IAxisHardware, IAxisHardwareDiagnostics
 {
     private readonly IReadOnlyList<IAxisHardware> _members;
     private readonly IAxisHardware _feedbackSource;
@@ -103,9 +103,28 @@ public class ParallelAxisHardware : IAxisHardware
 
     public bool CanExecuteCommand()
     {
-        return
-            _members.All(member => member.CanExecuteCommand()) &&
-            IsSynchronized;
+        return GetStatus() == AxisHardwareStatus.Ready;
+    }
+
+    public AxisHardwareStatus GetStatus()
+    {
+        AxisHardwareStatus[] memberStatuses = _members
+            .Select(AxisHardwareDiagnostics.GetStatus)
+            .ToArray();
+
+        if (memberStatuses.Contains(AxisHardwareStatus.InvalidFeedback))
+        {
+            return AxisHardwareStatus.InvalidFeedback;
+        }
+
+        if (memberStatuses.Any(status => status != AxisHardwareStatus.Ready))
+        {
+            return AxisHardwareStatus.Unavailable;
+        }
+
+        return IsSynchronized
+            ? AxisHardwareStatus.Ready
+            : AxisHardwareStatus.SynchronizationLost;
     }
 
     private double CalculatePositionDifference(double first, double second)

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SE2RobotFramework.Hardware;
 
-public class FakeAxisHardware : IAxisHardware
+public class FakeAxisHardware : IAxisHardware, IAxisHardwareDiagnostics
 {
     public double Position { get; private set; }
 
@@ -48,7 +48,19 @@ public class FakeAxisHardware : IAxisHardware
 
     public bool CanExecuteCommand()
     {
-        return IsAvailable;
+        return GetStatus() == AxisHardwareStatus.Ready;
+    }
+
+    public AxisHardwareStatus GetStatus()
+    {
+        if (!double.IsFinite(Position) || !double.IsFinite(Velocity))
+        {
+            return AxisHardwareStatus.InvalidFeedback;
+        }
+
+        return IsAvailable
+            ? AxisHardwareStatus.Ready
+            : AxisHardwareStatus.Unavailable;
     }
 
     public void Simulate(double deltaTime)

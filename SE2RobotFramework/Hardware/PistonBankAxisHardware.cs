@@ -1,6 +1,6 @@
 namespace SE2RobotFramework.Hardware;
 
-public class PistonBankAxisHardware : IAxisHardware
+public class PistonBankAxisHardware : IAxisHardware, IAxisHardwareDiagnostics
 {
     public const int MaximumPistonsPerRow = 6;
 
@@ -86,5 +86,10 @@ public class PistonBankAxisHardware : IAxisHardware
     public bool CanExecuteCommand()
     {
         return _parallelRows.CanExecuteCommand();
+    }
+
+    public AxisHardwareStatus GetStatus()
+    {
+        return _parallelRows.GetStatus();
     }
 }

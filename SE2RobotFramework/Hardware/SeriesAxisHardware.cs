@@ -1,6 +1,6 @@
 namespace SE2RobotFramework.Hardware;
 
-public class SeriesAxisHardware : IAxisHardware
+public class SeriesAxisHardware : IAxisHardware, IAxisHardwareDiagnostics
 {
     private readonly IReadOnlyList<IAxisHardware> _members;
 
@@ -55,6 +55,22 @@ public class SeriesAxisHardware : IAxisHardware
 
     public bool CanExecuteCommand()
     {
-        return _members.All(member => member.CanExecuteCommand());
+        return GetStatus() == AxisHardwareStatus.Ready;
+    }
+
+    public AxisHardwareStatus GetStatus()
+    {
+        AxisHardwareStatus[] statuses = _members
+            .Select(AxisHardwareDiagnostics.GetStatus)
+            .ToArray();
+
+        if (statuses.Contains(AxisHardwareStatus.InvalidFeedback))
+        {
+            return AxisHardwareStatus.InvalidFeedback;
+        }
+
+        return statuses.All(status => status == AxisHardwareStatus.Ready)
+            ? AxisHardwareStatus.Ready
+            : AxisHardwareStatus.Unavailable;
     }
 }
