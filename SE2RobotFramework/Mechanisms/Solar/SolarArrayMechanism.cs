@@ -51,4 +51,13 @@ public class SolarArrayMechanism
         _azimuthController.Update(deltaTime);
         _elevationController.Update(deltaTime);
     }
+
+    public MechanismRuntimeState GetRuntimeState()
+    {
+        return new MechanismRuntimeState(new[]
+        {
+            _azimuthController.GetRuntimeState(),
+            _elevationController.GetRuntimeState()
+        });
+    }
 }

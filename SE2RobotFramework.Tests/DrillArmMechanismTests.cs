@@ -1,4 +1,5 @@
 using SE2RobotFramework.Core;
+using SE2RobotFramework.Controllers;
 using SE2RobotFramework.Hardware;
 using SE2RobotFramework.Mechanisms.DrillArm;
 using SE2RobotFramework.Motion;
@@ -115,6 +116,29 @@ public class DrillArmMechanismTests
 
         Assert.Equal(6.0, firstElbow.CommandedVelocity);
         Assert.Equal(-6.0, secondElbow.CommandedVelocity);
+    }
+
+    [Fact]
+    public void GetRuntimeState_ReturnsAllEightLogicalAxes()
+    {
+        DrillArmMechanism mechanism = CreateMechanism(CreateSimpleHardware());
+        mechanism.SetTargets(new DrillArmTargets(
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0));
+        mechanism.Update(0.1);
+
+        MechanismRuntimeState state = mechanism.GetRuntimeState();
+
+        Assert.Equal(8, state.Axes.Count);
+        Assert.Equal("DrillArm.Base", state.Axes[0].Name);
+        Assert.Equal("DrillArm.Tool", state.Axes[7].Name);
+        Assert.True(state.IsMoving);
     }
 
     private static DrillArmMechanism CreateMechanism(DrillArmHardware hardware)

@@ -74,6 +74,20 @@ public class MotionController
         Status = MotionControllerStatus.Moving;
     }
 
+    public AxisRuntimeState GetRuntimeState()
+    {
+        return new AxisRuntimeState(
+            _axis.Name,
+            _axis.CurrentPosition,
+            _axis.TargetPosition,
+            _axis.GetError(),
+            _axis.GetDirection(),
+            _axis.Enabled,
+            _axis.MotionProfileType,
+            Status,
+            AxisHardwareDiagnostics.GetStatus(_hardware));
+    }
+
     private static MotionControllerStatus MapStatus(
         AxisHardwareStatus hardwareStatus)
     {

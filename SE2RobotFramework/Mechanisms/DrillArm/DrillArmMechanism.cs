@@ -65,4 +65,10 @@ public class DrillArmMechanism
             controller.Update(deltaTime);
         }
     }
+
+    public MechanismRuntimeState GetRuntimeState()
+    {
+        return new MechanismRuntimeState(
+            _controllers.Select(controller => controller.GetRuntimeState()));
+    }
 }

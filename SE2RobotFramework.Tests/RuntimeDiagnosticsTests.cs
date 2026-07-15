@@ -88,6 +88,37 @@ public class RuntimeDiagnosticsTests
         Assert.Throws<ArgumentOutOfRangeException>(() => controller.Update(0.0));
     }
 
+    [Fact]
+    public void MechanismState_WithFaultedAxis_ReportsFault()
+    {
+        MechanismRuntimeState state = new(new[]
+        {
+            new AxisRuntimeState(
+                "Ready",
+                0.0,
+                0.0,
+                0.0,
+                0,
+                true,
+                MotionProfileType.Linear,
+                MotionControllerStatus.AtTarget,
+                AxisHardwareStatus.Ready),
+            new AxisRuntimeState(
+                "Faulted",
+                0.0,
+                1.0,
+                1.0,
+                1,
+                true,
+                MotionProfileType.Linear,
+                MotionControllerStatus.SynchronizationLost,
+                AxisHardwareStatus.SynchronizationLost)
+        });
+
+        Assert.True(state.HasFault);
+        Assert.False(state.IsAtTarget);
+    }
+
     private static MotionController CreateController(IAxisHardware hardware)
     {
         LinearAxis axis = new()
