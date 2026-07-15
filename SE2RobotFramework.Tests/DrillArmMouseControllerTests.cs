@@ -67,6 +67,26 @@ public class DrillArmMouseControllerTests
     }
 
     [Fact]
+    public void Update_DuringMouseMovement_ContinuouslyCompensatesForearmOrientation()
+    {
+        (DrillArmMouseController controller, DrillArmMechanism mechanism) =
+            CreateController();
+        SetPose(mechanism, shoulder: 100.0, elbow: 20.0, forearmHinge: 100.0);
+        controller.Apply(new DrillArmMouseInput(0.0, 10.0));
+
+        SetPhysicalJointPositions(
+            mechanism,
+            shoulder: 105.0,
+            elbow: 25.0,
+            forearmHinge: 100.0);
+        controller.Update(0.1);
+
+        Assert.True(controller.IsForearmOrientationHoldEnabled);
+        Assert.Equal(90.0, mechanism.Axes.ForearmHinge.TargetPosition);
+        Assert.Equal(10.0, controller.ForearmOrientationErrorDegrees);
+    }
+
+    [Fact]
     public void PositionLimits_UsePistonCountAndSpecifiedJointBounds()
     {
         (_, DrillArmMechanism mechanism) = CreateController();
@@ -122,6 +142,7 @@ public class DrillArmMouseControllerTests
         double elbow,
         double forearmHinge)
     {
+        SetPhysicalJointPositions(mechanism, shoulder, elbow, forearmHinge);
         mechanism.SetTargets(new DrillArmTargets(
             0.0,
             shoulder,
@@ -132,6 +153,21 @@ public class DrillArmMouseControllerTests
             0.0,
             0.0,
             0.0));
+    }
+
+    private static void SetPhysicalJointPositions(
+        DrillArmMechanism mechanism,
+        double shoulder,
+        double elbow,
+        double forearmHinge)
+    {
+        ((FakeAxisHardware)mechanism.Hardware.Shoulder).SetPosition(shoulder);
+        ((FakeAxisHardware)mechanism.Hardware.Elbow).SetPosition(elbow);
+        ((FakeAxisHardware)mechanism.Hardware.ForearmHinge).SetPosition(
+            forearmHinge);
+        mechanism.Axes.Shoulder.UpdatePosition(shoulder);
+        mechanism.Axes.Elbow.UpdatePosition(elbow);
+        mechanism.Axes.ForearmHinge.UpdatePosition(forearmHinge);
     }
 
     private static DrillArmHardware CreateHardware()
